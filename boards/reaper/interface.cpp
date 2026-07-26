@@ -57,23 +57,6 @@ void _setup_gpio() {
 
     bool pmu_ret = false;
     pmu_ret = PPM.init(Wire, SYS_I2C_SDA, SYS_I2C_SCL, BQ25896_SLAVE_ADDRESS);
-    if (pmu_ret) {
-
-        PPM.setSysPowerDownVoltage(3300);
-        PPM.setInputCurrentLimit(2000);
-        Serial.printf("getInputCurrentLimit: %d mA\n", PPM.getInputCurrentLimit());
-        PPM.disableCurrentLimitPin();
-        PPM.setChargeTargetVoltage(4208);
-        PPM.setPrechargeCurr(64);
-        PPM.setChargerConstantCurr(832);
-        PPM.getChargerConstantCurr();
-        Serial.printf("getChargerConstantCurr: %d mA\n", PPM.getChargerConstantCurr());
-        PPM.enableMeasure(PowersBQ25896::CONTINUOUS);
-
-        PPM.disableOTG();
-        // PPM.enableInputDetection();
-        PPM.enableCharge();
-    }
     Wire.beginTransmission(BQ27220_I2C_ADDRESS);
     if (Wire.endTransmission() == 0) {
         if (bq.getDesignCap() != BATTERY_DESIGN_CAPACITY) { bq.setDesignCap(BATTERY_DESIGN_CAPACITY); }

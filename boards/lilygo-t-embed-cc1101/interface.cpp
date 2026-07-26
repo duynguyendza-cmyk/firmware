@@ -72,7 +72,6 @@ void _setup_gpio() {
 
         PPM.resetDefault();
         PPM.setChargeTargetVoltage(4208);
-        PPM.enableMeasure(PowersBQ25896::CONTINUOUS);
     }
     if (bq.getDesignCap() != BATTERY_DESIGN_CAPACITY) { bq.setDesignCap(BATTERY_DESIGN_CAPACITY); }
     // Start with default IR, RF and RFID Configs, replace old

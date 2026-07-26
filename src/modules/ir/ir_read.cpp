@@ -79,9 +79,7 @@ static String getParsedProtocolName(const decode_results &r) {
 void IrRead::setup() {
     irrecv.enableIRIn();
 
-#ifdef USE_BOOST
-    PPM.enableOTG();
-#endif
+
     const std::vector<std::pair<String, int>> pins = IR_RX_PINS;
     int count = 0;
     for (auto pin : pins) {
@@ -147,9 +145,7 @@ void IrRead::loop() {
             returnToMenu = true;
             button_pos = 0;
             quickloop = false;
-#ifdef USE_BOOST
-            PPM.disableOTG();
-#endif
+
             break;
         }
 

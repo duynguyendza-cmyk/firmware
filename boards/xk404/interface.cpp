@@ -40,24 +40,7 @@ void _setup_gpio() {
     bool pmu_ret = false;
     Wire.begin(SYS_I2C_SDA, SYS_I2C_SCL);
     pmu_ret = PPM.init(Wire, SYS_I2C_SDA, SYS_I2C_SCL, BQ25896_SLAVE_ADDRESS);
-    if (pmu_ret) {
-        PPM.setSysPowerDownVoltage(3300);
-        PPM.setInputCurrentLimit(3250);
-        Serial.printf("getInputCurrentLimit: %d mA\n", PPM.getInputCurrentLimit());
-        PPM.disableCurrentLimitPin();
-        PPM.setChargeTargetVoltage(4208);
-        PPM.setPrechargeCurr(64);
-        PPM.setChargerConstantCurr(832);
-        // PPM.getChargerConstantCurr();
-        // Serial.printf("getChargerConstantCurr: %d mA\n", PPM.getChargerConstantCurr());
-        PPM.enableMeasure(PowersBQ25896::CONTINUOUS);
-        PPM.disableOTG();
-        PPM.enableCharge();
-    }
-}
-bool isCharging() {
-    // PPM.disableBatterPowerPath();
-    return PPM.isCharging();
+
 }
 
 int getBattery() {
@@ -67,10 +50,7 @@ int getBattery() {
     if (percent < 0) return 1;
     if (percent > 100) percent = 100;
 
-    if (PPM.isCharging() && percent >= 97) {
-        PPM.disableBatLoad();
-        percent = 95; // estimate still charging
-    }
+
 
     if (PPM.isChargeDone()) { percent = 100; }
 

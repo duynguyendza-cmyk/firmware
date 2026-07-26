@@ -45,18 +45,13 @@ Wardriving::Wardriving(bool scanWiFi, bool scanBLE) {
 Wardriving::~Wardriving() {
     if (gpsConnected) end();
     ioExpander.turnPinOnOff(IO_EXP_GPS, LOW);
-#ifdef USE_BOOST /// ENABLE 5V OUTPUT
-    PPM.disableOTG();
-#endif
 }
 
 void Wardriving::setup() {
     wifiNetworkCount = 0;
     bluetoothDeviceCount = 0;
     ioExpander.turnPinOnOff(IO_EXP_GPS, HIGH);
-#ifdef USE_BOOST /// ENABLE 5V OUTPUT
-    PPM.enableOTG();
-#endif
+
     display_banner();
     padprintln("Initializing...");
 

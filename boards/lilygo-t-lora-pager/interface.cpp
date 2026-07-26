@@ -186,7 +186,6 @@ void _setup_gpio() {
 
         PPM.setChargeTargetVoltage(4288);
         PPM.setChargerConstantCurr(704);
-        PPM.enableMeasure(PowersBQ25896::CONTINUOUS);
     }
 
     // Battery gauge
