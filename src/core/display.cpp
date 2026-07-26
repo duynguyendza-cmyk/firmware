@@ -234,7 +234,7 @@ int8_t displayMessage(
 
     // Handle newline characters in message
     String msg = String(message);
-    int y = tftHeight / 2 - 20;
+    int y = tftHeight / 2 - 10; //sua
     int start = 0;
     int end = msg.indexOf('\n');
 
@@ -573,7 +573,6 @@ int loopOptions(
             }
             if (millis() - _clock_bat_timer > 30000) {
                 _clock_bat_timer = millis();
-                drawStatusBar(); // update clock and battery status each 30s
             }
         }
 
@@ -765,10 +764,8 @@ Opt_Coord drawOptions(
     int menuSize = options.size();
     if (options.size() > MAX_MENU_SIZE) { menuSize = MAX_MENU_SIZE; }
 
-    // Uncomment to update the statusBar (causes flickering)
-    // drawStatusBar();
 
-    int32_t optionsTopY = tftHeight / 2 - menuSize * (FM * 8 + 4) / 2 - 5;
+    int32_t optionsTopY = 18;
     tft.drawPixel(0, 0, bruceConfig.bgColor);
     if (firstRender) {
         tft.fillRoundRect(
@@ -867,20 +864,19 @@ Opt_Coord drawOptions(
 ** Description:   Função para desenhar e mostrar as opçoes de contexto
 ***************************************************************************************/
 void drawSubmenu(int index, std::vector<Option> &options, const char *title) {
-    drawStatusBar();
     int menuSize = options.size();
     tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
     tft.setTextSize(FP);
     tft.drawPixel(0, 0, 0);
     tft.fillRect(6, 30, tftWidth - 12, 8 * FP, bruceConfig.bgColor);
-    tft.drawString(title, 12, 30);
+    //tft.drawString(title, 12, 30);
 
     // middle of the drawing area
-    int middle = 25 /*status*/ + (tftHeight - 30 /*status + bottom margin*/) / 2;
+    int middle = 45;
     // drawCentreString uses TC_DATUM, so we need to adjust the Y position
     // 42 ensures that title isnt touched( 30 + 8 (LH) + 4(Margin))
-    int middle_up = middle - (tftHeight - 42) / 3 - FM * LH / 2 + 4;
-    int middle_down = middle + (tftHeight - 42) / 3 - FM * LH / 2;
+    int middle_up = 23;
+    int middle_down = 58;
 
     tft.setTextSize(FM);
 #if defined(HAS_TOUCH)
@@ -924,90 +920,6 @@ void drawSubmenu(int index, std::vector<Option> &options, const char *title) {
 #endif
 }
 
-void drawStatusBar() {
-    uint8_t bat = getBattery();
-    if (bat > 0) drawBatteryStatus(bat);
-
-    if (bruceConfig.theme.border) {
-        tft.drawRoundRect(5, 5, tftWidth - 10, tftHeight - 10, 5, bruceConfig.priColor);
-        tft.drawLine(5, 25, tftWidth - 6, 25, bruceConfig.priColor);
-    }
-
-    if (clock_set) {
-        setTftDisplay(12, 12, bruceConfig.priColor, 1, bruceConfig.bgColor);
-        tft.fillRect(12, 12, 60, LH, bruceConfig.bgColor);
-#if defined(HAS_RTC)
-        updateTimeStr(_rtc.getTimeStruct());
-#else
-        updateTimeStr(rtc.getTimeStruct());
-#endif
-        tft.print(timeStr);
-    } else {
-        setTftDisplay(12, 12, bruceConfig.priColor, 1, bruceConfig.bgColor);
-        tft.print("BRUCE " + String(BRUCE_VERSION));
-    }
-
-    int iconCount = 0;
-    bool showSD = sdcardMounted;
-    bool showGPS = gpsConnected;
-    bool showWifi = (WiFi.getMode() != 0);
-    bool showWeb = isWebUIActive;
-    bool showBLE = BLEConnected;
-    bool showWG = isConnectedWireguard;
-    if (showSD) iconCount++;
-    if (showGPS) iconCount++;
-    if (showWifi) iconCount++;
-    if (showWeb) iconCount++;
-    if (showBLE) iconCount++;
-    if (showWG) iconCount++;
-
-    if (iconCount > 0) {
-        const int IW = 16;
-        const int IH = 16;
-        const int GAP = 6;
-        int totalW = iconCount * IW + (iconCount - 1) * GAP;
-        int sx = (tftWidth - totalW) / 2;
-        int iy = 7;
-        int idx = 0;
-
-        if (showSD) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawSdSmall(x, iy);
-            idx++;
-        }
-        if (showGPS) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawGpsSmall(x, iy);
-            idx++;
-        }
-        if (showWifi) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawWifiSmall(x, iy);
-            idx++;
-        }
-        if (showWeb) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawWebUISmall(x, iy);
-            idx++;
-        }
-        if (showBLE) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawBLESmall(x, iy);
-            idx++;
-        }
-        if (showWG) {
-            int x = sx + idx * (IW + GAP);
-            tft.fillRect(x, iy, IW, IH, bruceConfig.bgColor);
-            drawWireguardStatus(x, iy);
-            idx++;
-        }
-    }
-}
 
 void drawMainBorder(bool clear) {
     if (clear) {
@@ -1019,7 +931,6 @@ void drawMainBorder(bool clear) {
 
     // if(wifiConnected) {tft.print(timeStr);} else {tft.print("BRUCE 1.0b");}
 
-    drawStatusBar();
 
 #if defined(HAS_TOUCH)
     TouchFooter();
@@ -1116,7 +1027,7 @@ void drawWireguardStatus(int x, int y) {
 ** Function name: listFiles
 ** Description:   Função para desenhar e mostrar o menu principal
 ***************************************************************************************/
-#define MAX_ITEMS (int)(tftHeight - 20) / (LH * FM)
+#define MAX_ITEMS (int)(tftHeight - 30) / (10)
 Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
     Opt_Coord coord;
     tft.drawPixel(0, 0, bruceConfig.bgColor);
@@ -1133,11 +1044,11 @@ Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
         start = index - MAX_ITEMS + 1;
         if (start < 0) start = 0;
     }
-    int nchars = (tftWidth - 20) / (6 * tft.getTextSize());
+    int nchars = (tftWidth - 40) / (6 * tft.getTextSize());
     String txt = ">";
     while (i < arraySize) {
         if (i >= start) {
-            tft.setCursor(10, tft.getCursorY());
+            tft.setCursor(8, 10 + ((i - start) * 10));
             if (fileList[i].folder == true)
                 tft.setTextColor(getColorVariation(bruceConfig.priColor), bruceConfig.bgColor);
             else if (fileList[i].operation == true) tft.setTextColor(ALCOLOR, bruceConfig.bgColor);

@@ -826,7 +826,6 @@ void key_input(FS fs, const String &bad_script, HIDInterface *_hid) {
 
     tft.setTextSize(FP);
     tft.setTextColor(bruceConfig.priColor);
-    tft.setCursor(BORDER_OFFSET_FROM_SCREEN_EDGE * 2, FP * 8 * 3 + 2 + STATUS_BAR_HEIGHT);
     tft.print("Run Time:");
     printDecimalTime(0);
 
@@ -1282,12 +1281,9 @@ void printTextAtPosition(uint16_t xOffset, uint16_t yOffset, const String &text)
     uint16_t currentTextCursorY = tft.getCursorY();
 
     uint16_t x = FP * 6 * xOffset + 2 + BORDER_OFFSET_FROM_SCREEN_EDGE;
-    uint16_t y = FP * 8 * yOffset + 2 + STATUS_BAR_HEIGHT;
 
     tft.setTextSize(FP);
     tft.setTextColor(bruceConfig.secColor);
-    tft.setCursor(x, y);
-    tft.fillRect(x, y, tftWidth - x - BORDER_OFFSET_FROM_SCREEN_EDGE * 2, FP * 8, bruceConfig.bgColor);
     tft.print(text);
     tft.setCursor(currentTextCursorX, currentTextCursorY);
 }
@@ -1302,14 +1298,11 @@ void printHeaderBadUSBBLE(const String &bad_script) {
 
     tft.setTextSize(FP);
     tft.setTextColor(bruceConfig.priColor);
-    tft.drawCentreString("BadUSB/BLE", tftWidth / 2, FP + STATUS_BAR_HEIGHT);
 
-    tft.setCursor(BORDER_OFFSET_FROM_SCREEN_EDGE * 2, FP * 8 * 1 + 2 + STATUS_BAR_HEIGHT);
     tft.print("Script: ");
     tft.setTextColor(bruceConfig.secColor);
     tft.print(bad_script.substring(bad_script.lastIndexOf("/") + 1));
 
-    tft.setCursor(BORDER_OFFSET_FROM_SCREEN_EDGE * 2, FP * 8 * 2 + 2 + STATUS_BAR_HEIGHT);
     tft.setTextColor(bruceConfig.priColor);
     tft.println("Status:");
 }

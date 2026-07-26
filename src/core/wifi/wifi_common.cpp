@@ -315,7 +315,6 @@ void wifiConnectTask(void *pvParameters) {
                 if (timezoneTaskHandle == NULL) {
                     xTaskCreate(updateTimezoneTask, "updateTimezone", 4096, NULL, 1, &timezoneTaskHandle);
                 }
-                drawStatusBar();
                 break;
             }
             vTaskDelay(100 / portTICK_RATE_MS);

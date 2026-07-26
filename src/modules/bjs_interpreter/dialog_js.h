@@ -32,7 +32,7 @@ JSValue native_dialogCreateTextViewerClose(JSContext *ctx, JSValue *this_val, in
 // finalizer used by the runtime when TextViewer instances are freed
 void native_textviewer_finalizer(JSContext *ctx, void *opaque);
 
-JSValue native_drawStatusBar(JSContext *ctx, JSValue *this_val, int argc, JSValue *argv);
+
 }
 
 #endif

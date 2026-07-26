@@ -53,8 +53,8 @@ void MainMenu::begin(void) {
                      drawMainBorder(false);
 
                      MenuItemInterface *obj = static_cast<MenuItemInterface *>(menuItem);
-                     float scale = float((float)tftWidth / (float)240);
-                     if (bruceConfigPins.rotation & 0b01) scale = float((float)tftHeight / (float)135);
+                     float scale = float((float)tftWidth / (float)160);
+                     if (bruceConfigPins.rotation & 0b01) scale = float((float)tftHeight / (float)80);
                      obj->draw(scale);
 #if defined(HAS_TOUCH)
                      TouchFooter();

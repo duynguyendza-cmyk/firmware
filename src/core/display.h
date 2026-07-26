@@ -7,7 +7,6 @@
 #include <LittleFS.h>
 #include <SD.h>
 #include <globals.h>
-#define STATUS_BAR_HEIGHT 12
 #define BORDER_OFFSET_FROM_SCREEN_EDGE 1
 #define BORDER_PAD_X 2
 #define BORDER_PAD_Y 4
@@ -179,7 +178,6 @@ Opt_Coord drawOptions(
 
 void drawSubmenu(int index, std::vector<Option> &options, const char *title);
 
-void drawStatusBar();
 void drawMainBorder(bool clear = true);
 void drawMainBorderWithTitle(const String &title, bool clear = true);
 void printTitle(const String &title);

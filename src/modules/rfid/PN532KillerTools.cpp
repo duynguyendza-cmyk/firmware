@@ -704,7 +704,6 @@ public:
         Serial.println();
         if (!BLEConnected) {
             BLEConnected = true;
-            drawStatusBar();
         }
     }
 };
@@ -713,12 +712,10 @@ class PN532ServerCallbacks : public BLEServerCallbacks {
 public:
     void onConnect(BLEServer *pServer, NimBLEConnInfo &connInfo) override {
         BLEConnected = true;
-        drawStatusBar();
     }
 
     void onDisconnect(NimBLEServer *pServer, NimBLEConnInfo &connInfo, int reason) override {
         BLEConnected = false;
-        drawStatusBar();
         // Restart advertising after disconnection
         pServer->getAdvertising()->start();
     }

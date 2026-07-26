@@ -5467,9 +5467,7 @@ static const JSCFunctionDef js_c_function_table[] = {
   { { .generic = native_dialogCreateTextViewer },
     JS_ROM_VALUE(1130) /* createTextViewer */,
     JS_CFUNC_generic, 2, 0 },
-  { { .generic = native_drawStatusBar },
-    JS_ROM_VALUE(1136) /* drawStatusBar */,
-    JS_CFUNC_generic, 0, 0 },
+  
   { { .generic = native_pinMode },
     JS_ROM_VALUE(1144) /* pinMode */,
     JS_CFUNC_generic, 3, 0 },
