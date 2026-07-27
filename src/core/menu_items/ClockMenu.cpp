@@ -32,8 +32,8 @@ void ClockMenu::showSubMenu() {
 
 void ClockMenu::drawIcon(float scale) {
     clearIconArea();
-    int radius = scale * 14;
-    int pointerSize = scale * 7;
+    int radius = scale * 15;
+    int pointerSize = scale * 8;
 
     // Case
     tft.drawArc(
