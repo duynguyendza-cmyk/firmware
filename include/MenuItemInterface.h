@@ -48,8 +48,8 @@ public:
             tftWidth - arrowAreaX - arrowAreaW, iconAreaY, arrowAreaW, iconAreaH, bruceConfig.bgColor
         );
 
-        int arrowSize = scale * 6;
-        int lineWidth = scale * 2;
+        int arrowSize = scale * 8;
+        int lineWidth = scale * 3;
 
         int arrowX = BORDER_PAD_X + 1.5 * arrowSize;
         int arrowY = iconCenterY + 1.5 * arrowSize - 5;
