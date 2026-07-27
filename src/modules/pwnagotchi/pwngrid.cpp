@@ -46,8 +46,6 @@ void add_new_peer(JsonDocument &json, signed int rssi) {
             json["pwnd_run"].as<int>(),
             json["pwnd_tot"].as<int>(),
             json["session_id"].as<String>(),
-            json["timestamp"].as<int>(),
-            json["uptime"].as<int>(),
             json["version"].as<String>(),
             rssi,
             millis(),
@@ -118,8 +116,6 @@ esp_err_t pwngridAdvertise(uint8_t channel, const String &face) {
     pal_json["pwnd_run"] = 0;
     pal_json["pwnd_tot"] = 0;
     pal_json["session_id"] = "a2:00:64:e6:0b:8b";
-    pal_json["timestamp"] = 0;
-    pal_json["uptime"] = 0;
     pal_json["version"] = "1.8.4";
     pal_json["policy"]["advertise"] = true;
     pal_json["policy"]["bond_encounters_factor"] = 20000;

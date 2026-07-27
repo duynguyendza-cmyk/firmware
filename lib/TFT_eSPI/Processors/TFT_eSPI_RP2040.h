@@ -17,7 +17,6 @@
 // Required for both the official and community board packages
 #include "hardware/dma.h"
 #include "hardware/pio.h"
-#include "hardware/clocks.h"
 
 // Processor ID reported by getSetup()
 #define PROCESSOR_ID 0x2040
@@ -129,7 +128,7 @@
 
   #define SPI_BUSY_CHECK
 
-  // Set the state machine clock divider (from integer and fractional parts - 16:8) 
+  // Set the state machine clock divider (from integer and fractional parts - 16:8)
   #define PARALLEL_INIT_TFT_DATA_BUS // Not used
 
 #endif

@@ -207,7 +207,6 @@ Also, [read our FAQ](https://wiki.bruce.computer/faq/)
 - [x] Orientation
 - [x] UI Color
 - [x] Boot Sound on/off
-- [x] Clock
 - [x] Sleep
 - [x] Restart
 </details>

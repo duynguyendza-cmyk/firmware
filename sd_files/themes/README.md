@@ -34,7 +34,6 @@ Theme settings are stored in a **.json** file, following this structure:
   "gps":"gps.png",
   "nrf":"nrf.png",
   "interpreter":"interpreter.png",
-  "clock":"clock.png",
   "others":"others.png",
   "connect":"connect.png",
   "config":"config.png",

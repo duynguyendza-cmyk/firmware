@@ -783,6 +783,7 @@ void addMifareKeyMenu() {
 **  Function: setClock
 **  Handles Menu to set timezone to NTP
 **********************************************************************/
+/*
 const char *ntpServer = "pool.ntp.org";
 
 WiFiUDP ntpUDP;
@@ -1050,7 +1051,7 @@ void runClockLoop(bool showMenuHint) {
 
         vTaskDelay(10 / portTICK_PERIOD_MS);
     }
-}
+}*/
 
 /*********************************************************************
 **  Function: gsetIrTxPin

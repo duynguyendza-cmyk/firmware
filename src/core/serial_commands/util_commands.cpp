@@ -7,7 +7,7 @@
 #include "core/bus_HAL.h"
 #include "modules/badusb_ble/ducky_typer.h"
 #include <globals.h>
-
+/*
 uint32_t uptimeCallback(cmd *c) {
     // https://github.com/espressif/arduino-esp32/blob/66c9c0b1a6a36b85d27cdac0fb52098368de1a09/libraries/WebServer/examples/AdvancedWebServer/AdvancedWebServer.ino#L64
 
@@ -51,7 +51,7 @@ uint32_t dateCallback(cmd *c) {
 #endif
 
     return true;
-}
+}*/
 
 uint32_t i2cCallback(cmd *c) {
     // scan for connected i2c modules
@@ -184,7 +184,6 @@ uint32_t helpCallback(cmd *c) {
 
     serialDevice->println("\nUI Commands:");
     serialDevice->println("  led <r/g/b> <0-255>    - Change the UI main color.");
-    serialDevice->println("  clock                 - Show the clock UI.");
 
     serialDevice->println("\nPower Management:");
     serialDevice->println("  power <off/reboot/sleep>  - General power management.");
@@ -413,8 +412,6 @@ uint32_t loaderCallback(cmd *c) {
 }
 
 void createUtilCommands(SimpleCLI *cli) {
-    cli->addCommand("uptime", uptimeCallback);
-    cli->addCommand("date", dateCallback);
     cli->addCommand("i2c", i2cCallback);
     cli->addCommand("free", freeCallback);
     cli->addCommand("info,!,device_info", infoCallback);

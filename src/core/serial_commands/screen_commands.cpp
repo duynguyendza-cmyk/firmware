@@ -81,7 +81,7 @@ uint32_t hexColorCallback(cmd *c) {
     bruceConfig.priColor = hexColor; // change global var, dont save in config
     return true;
 }
-
+/*
 uint32_t clockCallback(cmd *c) {
 #if defined(HAS_RTC)
     updateTimeStr(_rtc.getTimeStruct());
@@ -91,10 +91,9 @@ uint32_t clockCallback(cmd *c) {
     serialDevice->printf("\nCurrent time: %s", timeStr);
 #endif
     return true;
-}
+}*/
 
 void createScreenCommands(SimpleCLI *cli) {
-    Command clockCmd = cli->addCommand("clock", clockCallback);
 
     Command screenCmd = cli->addCompositeCmd("screen");
 

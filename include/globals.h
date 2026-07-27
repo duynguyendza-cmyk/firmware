@@ -25,17 +25,7 @@
 #include <vector>
 extern io_expander ioExpander;
 
-#if defined(HAS_RTC)
-#if defined(HAS_RTC_PCF85063A)
-#include "../lib/RTC/pcf85063_RTC.h"
-extern pcf85063_RTC _rtc;
-#else
-#include "../lib/RTC/cplus_RTC.h"
-extern cplus_RTC _rtc;
-#endif
-extern RTC_TimeTypeDef _time;
-extern RTC_DateTypeDef _date;
-#endif
+
 
 // Declaração dos objetos TFT
 #if defined(HAS_SCREEN)
@@ -65,14 +55,8 @@ extern SerialDevice *serialDevice;
 extern USBSerial USBserial;
 extern StartupApp startupApp;
 
-extern char timeStr[16];
 extern SPIClass sdcardSPI;
 extern SPIClass AUX_SPI;
-extern bool clock_set;
-extern time_t localTime;
-extern struct tm *timeInfo;
-extern ESP32Time rtc;
-extern NTPClient timeClient;
 
 extern int prog_handler; // 0 - Flash, 1 - LittleFS, 2 - Download
 

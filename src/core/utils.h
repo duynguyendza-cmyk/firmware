@@ -5,11 +5,6 @@
 void backToMenu();
 void addOptionToMainMenu();
 int getBattery() __attribute__((weak));
-void updateClockTimezone();
-#if !defined(HAS_RTC)
-void restorePersistedClock();
-#endif
-void updateTimeStr(struct tm timeInfo);
 void showDeviceInfo();
 String formatTimeDecimal(uint32_t totalMillis);
 String getOptionsJSON();

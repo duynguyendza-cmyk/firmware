@@ -64,7 +64,7 @@ int getBattery() {
 #endif
     return 0;
 }
-
+/*
 void updateClockTimezone() {
     timeClient.begin();
     timeClient.update();
@@ -118,43 +118,10 @@ static void time_persist_task(void *param) {
         }
     }
 }
-
+*/
 // Restore the last-saved time from NVS (if plausible) and start the periodic
 // save task. Call once from init_clock() on boards without an RTC.
-void restorePersistedClock() {
-    Preferences prefs;
-    if (prefs.begin(CLOCK_PERSIST_NS, true)) { // read-only
-        uint32_t epoch = prefs.getULong(CLOCK_PERSIST_KEY, 0);
-        prefs.end();
-        if (epoch > 1735689600UL) { // sanity: only restore a plausible time (after 2025-01-01)
-            rtc.setTime((unsigned long)epoch);
-            clock_set = true;
-            struct timeval tv = {.tv_sec = (time_t)epoch};
-            settimeofday(&tv, nullptr);
-        }
-    }
-    xTaskCreate(time_persist_task, "clockSave", 4096, NULL, 1, NULL);
-}
-#endif
 
-void updateTimeStr(struct tm timeInfo) {
-    if (bruceConfig.clock24hr) {
-        // Use 24 hour format
-        snprintf(
-            timeStr, sizeof(timeStr), "%02d:%02d:%02d", timeInfo.tm_hour, timeInfo.tm_min, timeInfo.tm_sec
-        );
-    } else {
-        // Use 12 hour format with AM/PM
-        int hour12 = (timeInfo.tm_hour == 0)   ? 12
-                     : (timeInfo.tm_hour > 12) ? timeInfo.tm_hour - 12
-                                               : timeInfo.tm_hour;
-        const char *ampm = (timeInfo.tm_hour < 12) ? "AM" : "PM";
-
-        snprintf(
-            timeStr, sizeof(timeStr), "%02d:%02d:%02d %s", hour12, timeInfo.tm_min, timeInfo.tm_sec, ampm
-        );
-    }
-}
 
 void showDeviceInfo() {
     ScrollableTextArea area = ScrollableTextArea("DEVICE INFO");

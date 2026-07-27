@@ -73,8 +73,6 @@ void send_pwnagotchi_beacon(uint8_t channel, const char *face, const char *name)
     json["pwnd_run"] = 0;
     json["pwnd_tot"] = 0;
     json["session_id"] = "a2:00:64:e6:0b:8b";
-    json["timestamp"] = 0;
-    json["uptime"] = 0;
     json["version"] = "1.8.4";
     json["policy"]["advertise"] = true;
     json["policy"]["bond_encounters_factor"] = 20000;

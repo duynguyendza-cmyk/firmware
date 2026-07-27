@@ -72,6 +72,5 @@ bool _connectToWifiNetwork(const String &ssid, const String &pwd);
  */
 bool _setupAP();
 
-void updateTimezoneTask(void *pvParameters);
 
 #endif

@@ -130,22 +130,7 @@ bool returnToMenu;
 bool isSleeping = false;
 bool isScreenOff = false;
 bool dimmer = false;
-char timeStr[16];
-time_t localTime;
-struct tm *timeInfo;
-#if defined(HAS_RTC)
-#if defined(HAS_RTC_PCF85063A)
-pcf85063_RTC _rtc;
-#else
-cplus_RTC _rtc;
-#endif
-RTC_TimeTypeDef _time;
-RTC_DateTypeDef _date;
-bool clock_set = true;
-#else
-ESP32Time rtc;
-bool clock_set = false;
-#endif
+
 
 std::vector<Option> options;
 // Protected global variables
@@ -359,6 +344,7 @@ void boot_screen_anim() {
  **  Function: init_clock
  **  Clock initialisation for propper display in menu
  *********************************************************************/
+/**
 void init_clock() {
 #if defined(HAS_RTC)
     _rtc.begin();
@@ -393,7 +379,7 @@ void init_clock() {
     settimeofday(&tv, nullptr);
     restorePersistedClock(); // override the default with the last-saved time (NVS) + start periodic save
 #endif
-}
+}*/
 
 /*********************************************************************
  **  Function: init_led
@@ -473,7 +459,7 @@ void setup() {
     tft.setRotation(bruceConfigPins.rotation);
     tft.fillScreen(TFT_BLACK);
     // bruceConfig is not read yet.. just to show something on screen due to long boot time
-    tft.setTextColor(TFT_PURPLE, TFT_BLACK);
+    tft.setTextColor(TFT_WHITE, TFT_BLACK);
     tft.drawCentreString("Khang iu", tft.width() / 2, tft.height() / 2 - 2, 1);
     RAM_LOG("first-display-elem"); // first element drawn on screen
 #else
@@ -482,7 +468,6 @@ void setup() {
     begin_storage();
     RAM_LOG("after-storage"); // bruceConfig/bruceConfigPins loaded from FS
     begin_tft();
-    init_clock();
     init_led();
     RAM_LOG("after-tft-clock-led");
 

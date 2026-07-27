@@ -17,7 +17,6 @@
 #include "modules/wifi/evil_portal.h"
 #include "modules/wifi/sniffer.h"
 #include <Arduino.h>
-#include <TimeLib.h>
 #include <algorithm>
 #include <globals.h>
 #include <map>

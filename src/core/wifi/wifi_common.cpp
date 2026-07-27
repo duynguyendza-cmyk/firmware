@@ -86,9 +86,6 @@ bool _wifiConnect(const String &ssid, int encryption) {
         bruceConfig.addWifiCredential(ssid, password);
 
         // Start timezone update in background if not already running
-        if (timezoneTaskHandle == NULL) {
-            xTaskCreate(updateTimezoneTask, "updateTimezone", 4096, NULL, 1, &timezoneTaskHandle);
-        }
     }
 
     delay(200);
@@ -312,9 +309,6 @@ void wifiConnectTask(void *pvParameters) {
                 wifiIP = WiFi.localIP().toString();
 
                 // Start timezone update in background if not already running
-                if (timezoneTaskHandle == NULL) {
-                    xTaskCreate(updateTimezoneTask, "updateTimezone", 4096, NULL, 1, &timezoneTaskHandle);
-                }
                 break;
             }
             vTaskDelay(100 / portTICK_RATE_MS);
@@ -376,21 +370,6 @@ bool wifiConnecttoKnownNet(void) {
         wifiIP = WiFi.localIP().toString();
 
         // Start timezone update in background if not already running
-        if (timezoneTaskHandle == NULL) {
-            xTaskCreate(updateTimezoneTask, "updateTimezone", 4096, NULL, 1, &timezoneTaskHandle);
-        }
     }
     return result;
-}
-
-void updateTimezoneTask(void *pvParameters) {
-    // Wait a bit for connection to stabilize before updating timezone
-    vTaskDelay(5000 / portTICK_PERIOD_MS);
-
-    // Only update timezone if WiFi is still connected
-    if (WiFi.isConnected() && wifiConnected) { updateClockTimezone(); }
-
-    // Clear the task handle before deleting
-    timezoneTaskHandle = NULL;
-    vTaskDelete(NULL);
 }

@@ -22,8 +22,6 @@ typedef struct {
     int pwnd_run;
     int pwnd_tot;
     String session_id;
-    int timestamp;
-    int uptime;
     String version;
     signed int rssi;
     unsigned long last_ping;

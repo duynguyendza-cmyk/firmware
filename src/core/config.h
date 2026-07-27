@@ -41,7 +41,6 @@ public:
     bool automaticTimeUpdateViaNTP = true;
     float tmz = 0;
     bool dst = false;
-    bool clock24hr = true;
     int soundEnabled = 1;
     int soundVolume = 100;
     int wifiAtStartup = 0;
@@ -132,7 +131,6 @@ public:
     void setTmz(float value);
     void validateTmzValue();
     void setDST(bool value);
-    void setClock24Hr(bool value);
     void setSoundEnabled(int value);
     void setSoundVolume(int value);
     void validateSoundEnabledValue();
