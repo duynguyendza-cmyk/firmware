@@ -96,7 +96,7 @@ public:
     }
 
     void drawTitle(float scale = 1) {
-        int titleY = iconCenterY + iconAreaH / 2 + FG -14;
+        int titleY = iconCenterY + iconAreaH / 2 + FG -17;
 
         tft.setTextSize(FM);
         tft.drawPixel(0, 0, 0);
