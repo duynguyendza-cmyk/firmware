@@ -613,11 +613,11 @@ int loopOptions(
         if (menuType == MENU_TYPE_MAIN && checkShortcutPress()) break;
 #endif
 
-        if (menuType == MENU_TYPE_REGULAR) {
+       /*if (menuType == MENU_TYPE_REGULAR) {
         //   String txt = options[index].label;
         displayScrollingText(fileList[index].filename, coord, false);
-        
-                               }
+
+                               }*/
 
 
 // Checks ESC Press first, to not exit after PrevPress is processed
@@ -1085,7 +1085,8 @@ Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
             else txt = " ";
             txt += fileList[i].filename + "                 ";
             tft.println(txt.substring(0, nchars));
-        }
+            if (index == i) displayScrollingText(fileList[i].filename, coord, false);
+    }
         i++;
         if (i == (start + MAX_ITEMS) || i == arraySize) break;
     }
