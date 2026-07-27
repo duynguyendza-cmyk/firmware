@@ -1182,9 +1182,6 @@ String generalKeyboard(
                 if (KeyStroke.enter) { break; }
                 KeyStroke.Clear();
             }
-#if !defined(T_LORA_PAGER)   // T-LoRa-Pager does not have a select button
-            if (check(SelPress)) break;
-#endif
 #endif
 
 #if defined(HAS_ENCODER) // T-Embed and T-LoRa-Pager and WaveSentry

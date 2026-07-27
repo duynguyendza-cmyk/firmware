@@ -52,7 +52,7 @@ static const uint8_t SCK = 18;
 
 #define FP 1
 #define FM 1
-#define FG 2
+#define FG 1
 
 #define HAS_SCREEN
 #define ROTATION 3

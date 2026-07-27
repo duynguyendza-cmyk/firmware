@@ -149,13 +149,6 @@ static const uint8_t SCK = SPI_SCK_PIN;
 
 // LoRa
 
-#define LORA_SCK SPI_SCK_PIN
-#define LORA_MISO SPI_MISO_PIN
-#define LORA_MOSI SPI_MOSI_PIN
-#define LORA_CS 4
-#define LORA_RST 43 /// OR 44
-#define LORA_BUSY 5
-#define LORA_IRQ 42
 
 // NFC ST25R3916
 #define HAS_ST25R3916

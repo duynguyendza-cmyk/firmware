@@ -9,9 +9,6 @@ MainMenu::MainMenu() {
         &bleMenu,
         &rfMenu,
         &nrf24Menu,
-#if !defined(LITE_VERSION)
-        &loraMenu,
-#endif
 #if defined(FM_SI4713) && !defined(LITE_VERSION)
         &fmMenu,
 #endif

@@ -1079,7 +1079,7 @@ Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
 }
 
 // desenhos do menu principal, sprite "draw" com 80x80 pixels
-
+/*
 void drawSdSmall(int x, int y) {
     tft.fillRect(x, y, 16, 16, bruceConfig.bgColor);
     tft.drawLine(x + 3, y + 2, x + 3, y + 14, bruceConfig.priColor);
@@ -1141,7 +1141,7 @@ void drawGpsSmall(int x, int y) {
     tft.drawArc(x + 8, y + 5, 5, 2, 0, 360, bruceConfig.priColor, bruceConfig.bgColor);
     tft.fillTriangle(x + 8, y + 14, x + 4, y + 8, x + 12, y + 8, bruceConfig.priColor);
 }
-
+*/
 void drawCreditCard(int x, int y) {
     tft.fillRect(x, y, 70, 50, bruceConfig.bgColor);
     tft.fillRoundRect(x + 5, y + 5, 60, 40, 5, bruceConfig.priColor);

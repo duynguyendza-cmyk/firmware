@@ -12,7 +12,6 @@
 #include "menu_items/FileMenu.h"
 #include "menu_items/GpsMenu.h"
 #include "menu_items/IRMenu.h"
-#include "menu_items/LoRaMenu.h"
 #include "menu_items/NRF24.h"
 #include "menu_items/OthersMenu.h"
 #include "menu_items/RFIDMenu.h"
@@ -36,7 +35,6 @@ public:
     ScriptsMenu scriptsMenu;
     WifiMenu wifiMenu;
 #if !defined(LITE_VERSION)
-    LoRaMenu loraMenu;
     EthernetMenu ethernetMenu;
 #endif
 
