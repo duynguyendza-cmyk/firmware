@@ -255,7 +255,7 @@ void boot_screen() {
  **  Draw boot screen
  *********************************************************************/
 void boot_screen_anim() {
-    boot_screen();
+    
     int i = millis();
     // checks for boot.jpg in SD and LittleFS for customization
     int boot_img = 0;
