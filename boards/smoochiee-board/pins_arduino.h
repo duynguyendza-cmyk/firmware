@@ -61,7 +61,7 @@ static const uint8_t SCK = 18;
 #define USER_SETUP_LOADED
 #define ST7735_DRIVER
 #define TFT_RGB_ORDER TFT_BGR
-#define TFT_ 80
+#define TFT_WIDTH 80
 #define TFT_HEIGHT 160
 #define TFT_BACKLIGHT_ON HIGH
 #define TFT_BL 6
