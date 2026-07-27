@@ -12,7 +12,7 @@
 #define BORDER_PAD_Y 4
 #define MENU_TYPE_MAIN 0
 #define MENU_TYPE_SUBMENU 1
-#define MENU_TYPE_REGULAR 1
+#define MENU_TYPE_REGULAR 2
 
 void panelSleep(bool on);
 void turnOffDisplay();
