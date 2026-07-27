@@ -102,7 +102,7 @@ public:
         tft.drawPixel(0, 0, 0);
         tft.fillRect(arrowAreaX, titleY, tftWidth - 2 * arrowAreaX, LH * FM, bruceConfig.bgColor);
         int nchars = (tftWidth - 16) / (LW * FM);
-        tft.drawCentreString(getName().substring(0, nchars), iconCenterX +2, titleY, 1);
+        tft.drawCentreString(getName().substring(0, nchars), iconCenterX +1, titleY, 1);
     }
 
 protected:
