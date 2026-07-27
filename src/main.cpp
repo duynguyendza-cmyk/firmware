@@ -237,18 +237,19 @@ void begin_tft() {
  **  Function: boot_screen
  **  Draw boot screen
  *********************************************************************/
+/**
 void boot_screen() {
     tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
     tft.setTextSize(2);
     tft.drawPixel(0, 0, bruceConfig.bgColor);
-    tft.drawCentreString("Be Dao", tftWidth / 2, 10, 1);
+   // tft.drawCentreString("Be Dao", tftWidth / 2, 10, 1);
     tft.setTextSize(2);
    // tft.drawCentreString(BRUCE_, tftWidth / 2, 25, 1);
     tft.setTextSize(FM);
     //tft.drawCentreString(
        // "PREDATORY FIRMWARE", tftWidth / 2, tftHeight + 2, 1); // will draw outside the screen on non touch devices
 }
-
+*/
 /*********************************************************************
  **  Function: boot_screen_anim
  **  Draw boot screen
