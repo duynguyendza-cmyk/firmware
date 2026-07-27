@@ -868,9 +868,9 @@ void drawSubmenu(int index, std::vector<Option> &options, const char *title) {
     tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
     tft.setTextSize(FP);
     tft.drawPixel(0, 0, 0);
-    tft.fillRect(6, 30, tftWidth - 12, 8 * FP, bruceConfig.bgColor);
+    //tft.fillRect(0, 10, tftWidth - 2, 8 * FP, bruceConfig.bgColor);
     //tft.drawString(title, 12, 30);
-
+    tft.fillRect(0, 10, tftWidth, tftHeight - 10, bruceConfig.bgColor);
     // middle of the drawing area
     int middle = 40;
     // drawCentreString uses TC_DATUM, so we need to adjust the Y position
