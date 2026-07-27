@@ -20,7 +20,7 @@ bool wakeUpScreen();
 
 struct Opt_Coord {
     uint16_t x = 0;
-    uint16_t y = 0;
+    uint16_t y = 40;
     uint16_t size = 2;
     uint16_t fgcolor = bruceConfig.priColor;
     uint16_t bgcolor = bruceConfig.bgColor;

@@ -52,6 +52,7 @@ void displayScrollingText(const String &text, Opt_Coord &coord, bool highlight) 
             highlight ? coord.fgcolor : bruceConfig.bgColor
         ); // Clear display area
         tft.setCursor(coord.x, coord.y);
+        tft.setTextSize(2); // font
         tft.print(scrollingPart);
         if (i >= scrollLen - coord.size) i = -1; // Loop back
         _lastmillis = millis();
@@ -615,7 +616,8 @@ int loopOptions(
 
        if (menuType == MENU_TYPE_REGULAR) {
                     String txt = options[index].label;
-                                displayScrollingText(txt, coord, true);
+                    Serial.printf("coord.x=%d coord.y=%d size=%d\n", coord.x, coord.y, coord.size);
+                    displayScrollingText(txt, coord, true);
                                         }
 
 
