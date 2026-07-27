@@ -26,8 +26,8 @@ static const uint8_t SCK = 18;
 
 #define BTN_ALIAS "\"OK\""
 #define HAS_2_BUTTONS
-#define UP_BTN 0
-#define DW_BTN 41
+#define UP_BTN 41
+#define DW_BTN 0
 #define BTN_ACT LOW
 
 #define RXLED 4
@@ -52,7 +52,7 @@ static const uint8_t SCK = 18;
 
 #define FP 1
 #define FM 1
-#define FG 1
+#define FG 2
 
 #define HAS_SCREEN
 #define ROTATION 3

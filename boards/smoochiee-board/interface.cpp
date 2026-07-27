@@ -78,7 +78,7 @@ if (up) {
     if (upTime == 0) upTime = millis();
 
         if (!upHandled && millis() - upTime >= 250) {
-                SelPress = true;
+                EscPress = true;
                         upHandled = true;
                             }
                             } else {
@@ -98,7 +98,7 @@ if (dw) {
     if (dwTime == 0) dwTime = millis();
 
         if (!dwHandled && millis() - dwTime >= 250) {
-                EscPress = true;
+                SelPress = true;
                         dwHandled = true;
                             }
                             } else {
