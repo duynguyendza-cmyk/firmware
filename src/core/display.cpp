@@ -614,10 +614,11 @@ int loopOptions(
 #endif
 
         if (menuType == MENU_TYPE_REGULAR) {
-           String txt = options[index].label;
-                       displayScrollingText(txt, coord, true);
-                               }
+        //   String txt = options[index].label;
+        displayScrollingText(fileList[index].filename, coord, false);
         
+                               }
+
 
 // Checks ESC Press first, to not exit after PrevPress is processed
 // PrevPress condition is a StickCPlus workaround, as it uses the same button for Prev and Esc
@@ -1049,13 +1050,15 @@ Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
     String txt = ">";
     while (i < arraySize) {
         if (i >= start) {
-            tft.setCursor(8, 10 + ((i - start) * 10));
+          //  tft.setCursor(8, 10 + ((i - start) * 10));
+            int lineY = 10 + ((i - start) * 10);
+            tft.setCursor(8, lineY);
             if (fileList[i].folder == true)
                 tft.setTextColor(getColorVariation(bruceConfig.priColor), bruceConfig.bgColor);
             else if (fileList[i].operation == true) tft.setTextColor(ALCOLOR, bruceConfig.bgColor);
             else { tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor); }
 
-            if (index == i) {
+           /* if (index == i) {
                 txt = ">";
                 coord.x = 10 + FM * LW;
                 coord.y = tft.getCursorY();
@@ -1063,7 +1066,23 @@ Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
                 coord.fgcolor =
                     fileList[i].folder ? getColorVariation(bruceConfig.priColor) : bruceConfig.priColor;
                 coord.bgcolor = bruceConfig.bgColor;
-            } else txt = " ";
+            }*/
+           if (index == i) {
+                txt = ">";
+
+                    coord.x = 8 + FM * LW;   // ngay sau dấu >
+                        coord.y = lineY;         // đúng vị trí dòng selected
+                            coord.size = nchars - 1; // trừ ký tự >
+
+                                coord.fgcolor =
+                                        fileList[i].folder
+                                                    ? getColorVariation(bruceConfig.priColor)
+                                                                : bruceConfig.priColor;
+
+                                                                    coord.bgcolor = bruceConfig.bgColor;
+                                                                    }
+           }
+            else txt = " ";
             txt += fileList[i].filename + "                 ";
             tft.println(txt.substring(0, nchars));
         }
