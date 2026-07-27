@@ -616,7 +616,6 @@ int loopOptions(
 
        if (menuType == MENU_TYPE_REGULAR) {
                     String txt = options[index].label;
-                    Serial.printf("coord.x=%d coord.y=%d size=%d\n", coord.x, coord.y, coord.size);
                     displayScrollingText(txt, coord, true);
                                         }
 
