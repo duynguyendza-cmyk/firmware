@@ -614,9 +614,10 @@ int loopOptions(
 #endif
 
         if (menuType == MENU_TYPE_REGULAR) {
-           // String txt = options[index].label;
-            displayScrollingText(txt, coord, true);
-        }
+           String txt = options[index].label;
+                       displayScrollingText(txt, coord, true);
+                               }
+        
 
 // Checks ESC Press first, to not exit after PrevPress is processed
 // PrevPress condition is a StickCPlus workaround, as it uses the same button for Prev and Esc
