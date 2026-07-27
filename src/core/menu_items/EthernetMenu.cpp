@@ -108,7 +108,7 @@ void EthernetMenu::drawIcon(float scale) {
     int firstPinX = cx - (totalSpread / 2);
 
     for (int i = 0; i < 8; i++) {
-        int px = firstPinX + (i * step) - (pinW / 2);
+        int px = firstPinX + (i * step) - (pinW / 2) - 1;
         tft.fillRect(px, y1 + t, pinW, pinH, bruceConfig.priColor);
     }
 }
