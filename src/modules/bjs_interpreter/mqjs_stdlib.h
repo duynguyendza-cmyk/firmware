@@ -14,7 +14,6 @@
 #include "led_js.h"
 #include "math_js.h"
 #include "menu_js.h"
-#include "mic_js.h"
 #include "notification_js.h"
 #include "nrf24_js.h"
 #include "rfid_js.h"
@@ -5467,7 +5466,7 @@ static const JSCFunctionDef js_c_function_table[] = {
   { { .generic = native_dialogCreateTextViewer },
     JS_ROM_VALUE(1130) /* createTextViewer */,
     JS_CFUNC_generic, 2, 0 },
-  
+
   { { .generic = native_pinMode },
     JS_ROM_VALUE(1144) /* pinMode */,
     JS_CFUNC_generic, 3, 0 },
@@ -5576,12 +5575,8 @@ static const JSCFunctionDef js_c_function_table[] = {
   { { .generic = native_notifyBlink },
     JS_ROM_VALUE(1297) /* blink */,
     JS_CFUNC_generic, 1, 0 },
-  { { .generic = native_micRecordWav },
-    JS_ROM_VALUE(1302) /* recordWav */,
-    JS_CFUNC_generic, 2, 0 },
-  { { .generic = native_micCaptureSamples },
-    JS_ROM_VALUE(1306) /* captureSamples */,
-    JS_CFUNC_generic, 1, 0 },
+
+  
   { { .generic = native_rfidRead },
     JS_ROM_VALUE(1227) /* read */,
     JS_CFUNC_generic, 1, 0 },

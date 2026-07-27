@@ -246,7 +246,6 @@ static bool parse_pcap_handshake(FS &fs, const String &path, HandshakeData &hs) 
         }
 
         uint16_t key_info = (uint16_t)((key[1] << 8) | key[2]);
-        bool mic_set = key_info & 0x0100;
         bool ack = key_info & 0x0080;
         bool install = key_info & 0x0040;
         bool secure = key_info & 0x0200;
@@ -255,11 +254,6 @@ static bool parse_pcap_handshake(FS &fs, const String &path, HandshakeData &hs) 
         uint8_t *mic = key + 77;
 
         int msg_num = -1;
-        if (ack && !mic_set && !install) msg_num = 1;
-        if (!ack && mic_set && !install && !secure) msg_num = 2;
-        if (ack && mic_set && install) msg_num = 3;
-        if (!ack && mic_set && !install && secure) msg_num = 4;
-
         if (msg_num == 1) {
             memcpy(hs.anonce, nonce, 32);
             memcpy(hs.ap_mac, ap_addr, 6);

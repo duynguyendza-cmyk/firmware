@@ -256,6 +256,6 @@ extern inline bool check(volatile bool &btn, bool resetButtonStatus = true) {
 #endif
 }
 
-extern gpio_num_t mic_bclk_pin; // used to configure Cardputer ADV Microphone
+// used to configure Cardputer ADV Microphone
 
 #endif

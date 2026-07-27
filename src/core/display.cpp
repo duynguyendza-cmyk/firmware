@@ -874,7 +874,7 @@ void drawSubmenu(int index, std::vector<Option> &options, const char *title) {
     int middle = 40;
     // drawCentreString uses TC_DATUM, so we need to adjust the Y position
     // 42 ensures that title isnt touched( 30 + 8 (LH) + 4(Margin))
-    int middle_up = 17;
+    int middle_up = 15;
     int middle_down = 59;
 
     tft.setTextSize(FM);

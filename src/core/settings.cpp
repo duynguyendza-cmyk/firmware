@@ -698,12 +698,6 @@ void setRFModuleMenu() {
         }
         // else display an error
         displayError("CC1101 not found", true);
-        if (pins_setup == 1)
-            qrcode_display("https://github.com/pr3y/Bruce/blob/main/media/connections/cc1101_stick.jpg");
-        if (pins_setup == 2)
-            qrcode_display(
-                "https://github.com/pr3y/Bruce/blob/main/media/connections/cc1101_stick_SDCard.jpg"
-            );
         while (!check(AnyKeyPress)) vTaskDelay(50 / portTICK_PERIOD_MS);
     }
     // fallback to "M5 RF433T/R" on errors
