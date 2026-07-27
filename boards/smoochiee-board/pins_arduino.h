@@ -52,7 +52,7 @@ static const uint8_t SCK = 18;
 
 #define FP 1
 #define FM 1
-#define FG 2
+#define FG 1
 
 #define HAS_SCREEN
 #define ROTATION 3
@@ -74,8 +74,8 @@ static const uint8_t SCK = 18;
 #define TOUCH_CS -1 // SDCARD_CS to make sure SDCard works
 #define SMOOTH_FONT 1
 #define ST7735_GREENTAB160x80
-#define SPI_FREQUENCY 20000000
-#define SPI_READ_FREQUENCY 20000000
+#define SPI_FREQUENCY 27000000
+#define SPI_READ_FREQUENCY 6000000
 #define SPI_TOUCH_FREQUENCY 2500000
 #define TFT_INVERSION_ON
 

@@ -612,11 +612,11 @@ int loopOptions(
         // `options` (like selecting an option does) rather than repainting stale options.
         if (menuType == MENU_TYPE_MAIN && checkShortcutPress()) break;
 #endif
-/*
+
         if (menuType == MENU_TYPE_REGULAR) {
-            String txt = options[index].label;
+           // String txt = options[index].label;
             displayScrollingText(txt, coord, true);
-        }*/
+        }
 
 // Checks ESC Press first, to not exit after PrevPress is processed
 // PrevPress condition is a StickCPlus workaround, as it uses the same button for Prev and Esc
