@@ -96,9 +96,9 @@ void RFIDMenu::configMenu() {
 
 void RFIDMenu::drawIcon(float scale) {
     clearIconArea();
-    int iconSize = scale * 14;
-    int iconRadius = scale * 1;
-    int deltaRadius = scale * 2;
+    int iconSize = scale * 20;
+    int iconRadius = scale * 3;
+    int deltaRadius = scale * 5;
 
     if (iconSize % 2 != 0) iconSize++;
 

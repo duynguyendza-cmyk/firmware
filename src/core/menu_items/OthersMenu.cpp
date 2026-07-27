@@ -71,7 +71,7 @@ void OthersMenu::drawIcon(float scale) {
     clearIconArea();
 
     // Dynamic radius calculation based on scale for responsive rendering
-    int radius = scale * 1;
+    int radius = scale * 4;
 
     // Center circle
     tft.fillCircle(iconCenterX, iconCenterY, radius, bruceConfig.priColor);
