@@ -612,11 +612,11 @@ int loopOptions(
         // `options` (like selecting an option does) rather than repainting stale options.
         if (menuType == MENU_TYPE_MAIN && checkShortcutPress()) break;
 #endif
-
+/*
         if (menuType == MENU_TYPE_REGULAR) {
             String txt = options[index].label;
             displayScrollingText(txt, coord, true);
-        }
+        }*/
 
 // Checks ESC Press first, to not exit after PrevPress is processed
 // PrevPress condition is a StickCPlus workaround, as it uses the same button for Prev and Esc
@@ -872,11 +872,11 @@ void drawSubmenu(int index, std::vector<Option> &options, const char *title) {
     //tft.drawString(title, 12, 30);
 
     // middle of the drawing area
-    int middle = 45;
+    int middle = 43;
     // drawCentreString uses TC_DATUM, so we need to adjust the Y position
     // 42 ensures that title isnt touched( 30 + 8 (LH) + 4(Margin))
-    int middle_up = 23;
-    int middle_down = 58;
+    int middle_up = 21;
+    int middle_down = 59;
 
     tft.setTextSize(FM);
 #if defined(HAS_TOUCH)
