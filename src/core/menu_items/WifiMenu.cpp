@@ -149,8 +149,8 @@ void WifiMenu::configMenu() {
 
 void WifiMenu::drawIcon(float scale) {
     clearIconArea();
-    int deltaY = scale * 10;
-    int radius = scale * 4;
+    int deltaY = scale * 11;
+    int radius = scale * 5;
 
     tft.fillCircle(iconCenterX, iconCenterY + deltaY, radius, bruceConfig.priColor);
     tft.drawArc(
