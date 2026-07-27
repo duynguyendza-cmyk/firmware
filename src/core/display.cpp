@@ -52,7 +52,6 @@ void displayScrollingText(const String &text, Opt_Coord &coord, bool highlight) 
             highlight ? coord.fgcolor : bruceConfig.bgColor
         ); // Clear display area
         tft.setCursor(coord.x, coord.y);
-        tft.setTextSize(2); // font
         tft.print(scrollingPart);
         if (i >= scrollLen - coord.size) i = -1; // Loop back
         _lastmillis = millis();
@@ -1062,9 +1061,9 @@ Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
 
             if (index == i) {
                 txt = ">";
-                coord.x = 8 + FM * LW;
-                coord.y = lineY + 4;
-                coord.size = nchars -1;
+                coord.x = 10 + FM * LW;
+                coord.y = tft.getCursorY();
+                coord.size = nchars - 1;
                 coord.fgcolor =
                     fileList[i].folder ? getColorVariation(bruceConfig.priColor) : bruceConfig.priColor;
                 coord.bgcolor = bruceConfig.bgColor;
