@@ -58,7 +58,7 @@ void RFMenu::drawIcon(float scale) {
     clearIconArea();
     int radius = scale * 5;
     int deltaRadius = scale * 5;
-    int triangleSize = scale * 18;
+    int triangleSize = scale * 17;
 
     if (triangleSize % 2 != 0) triangleSize++;
 
