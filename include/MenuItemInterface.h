@@ -52,7 +52,7 @@ public:
         int lineWidth = scale * 2;
 
         int arrowX = BORDER_PAD_X + 1.5 * arrowSize;
-        int arrowY = iconCenterY + 1.5 * arrowSize;
+        int arrowY = iconCenterY + 1.5 * arrowSize - 6;
 
         // Left Arrow
         tft.drawWideLine(
@@ -115,7 +115,7 @@ protected:
     int iconAreaW = iconAreaH;
 
     int iconCenterX = tftWidth / 2;
-    int iconCenterY = tftHeight / 2;
+    int iconCenterY = tftHeight / 2 - 5;
     int imgCenterY = 13;
 
     int iconAreaX = iconCenterX - iconAreaW / 2;
