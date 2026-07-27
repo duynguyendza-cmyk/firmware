@@ -19,7 +19,6 @@ private:
     void audioMenu(void);
     void systemMenu(void);
     void advancedMenu(void);
-    void powerMenu(void);
     void devMenu(void);
 
     // Helper methods for complex operations

@@ -24,7 +24,6 @@ void ConfigMenu::optionsMenu() {
         std::vector<Option> localOptions = {
             {"Display & UI",  [this]() { displayUIMenu(); }},
             {"System Config", [this]() { systemMenu(); }   },
-            {"Power",         [this]() { powerMenu(); }    },
         };
 
 #if !defined(LITE_VERSION)
@@ -163,31 +162,6 @@ void ConfigMenu::advancedMenu() {
 **  Function: powerMenu
 **  Power management submenu with auto-rebuild
 **********************************************************************/
-void ConfigMenu::powerMenu() {
-    while (true) {
-        std::vector<Option> localOptions = {
-            {"Deep Sleep", goToDeepSleep          },
-            {"Sleep",      setSleepMode           },
-            {"Restart",    []() { ESP.restart(); }},
-            {"Power Off",
-             []() {
-                 // Confirmation dialog for power off
-                 drawMainBorder(true);
-                 int8_t choice = displayMessage("Power Off Device?", "No", nullptr, "Yes", TFT_RED);
-
-                 if (choice == 1) { powerOff(); }
-             }                                    },
-            {"Back",       []() {}                },
-        };
-
-        int selected = loopOptions(localOptions, MENU_TYPE_SUBMENU, "Power Menu");
-
-        // Exit to Config menu
-        if (selected == -1 || selected == localOptions.size() - 1) { return; }
-        // Menu rebuilds after each action
-    }
-}
-
 /*********************************************************************
 **  Function: devMenu
 **  Developer mode menu for advanced hardware configuration
