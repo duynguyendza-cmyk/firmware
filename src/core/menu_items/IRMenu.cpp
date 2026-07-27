@@ -45,9 +45,9 @@ void IRMenu::configMenu() {
 
 void IRMenu::drawIcon(float scale) {
     clearIconArea();
-    int iconSize = scale * 30;
-    int radius = scale * 2;
-    int deltaRadius = scale * 5;
+    int iconSize = scale * 14;
+    int radius = scale * 1;
+    int deltaRadius = scale * 2;
 
     if (iconSize % 2 != 0) iconSize++;
 

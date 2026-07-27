@@ -24,9 +24,9 @@ void ConnectMenu::optionsMenu() {
 void ConnectMenu::drawIcon(float scale) {
     clearIconArea();
 
-    int iconW = scale * 50;
-    int iconH = scale * 40;
-    int radius = scale * 2;
+    int iconW = scale * 24;
+    int iconH = scale * 18;
+    int radius = scale * 1;
 
     if (iconW % 2 != 0) iconW++;
     if (iconH % 2 != 0) iconH++;

@@ -19,14 +19,14 @@ void LoRaMenu::drawIcon(float scale) {
     clearIconArea();
     scale *= 0.75;
     int cx = iconCenterX;
-    int cy = iconCenterY + (scale * 8);
+    int cy = iconCenterY + (scale * 4);
 
 #define CALC_X(val) (cx + ((val - 50) * scale))
 #define CALC_Y(val) (cy + ((val - 50) * scale))
 
-    int lineWidth = scale * 4.5;
+    int lineWidth = scale * 2.5;
     if (lineWidth < 2) lineWidth = 2;
-    int ballRad = scale * 6;
+    int ballRad = scale * 3;
 
     // --- LEGS UPDATED (Y changed from 95 to 85) ---
 
