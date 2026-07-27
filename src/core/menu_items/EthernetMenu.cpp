@@ -64,8 +64,8 @@ void EthernetMenu::drawIcon(float scale) {
     // Dimensions
     int cx = iconCenterX;
     int cy = iconCenterY + (4 * scale); // Centered and slightly lower
-    int w = 48 * scale;
-    int h = 40 * scale;
+    int w = 34 * scale;
+    int h = 28 * scale;
     if (w % 2 != 0) w++;
     if (h % 2 != 0) h++;
 
@@ -75,12 +75,12 @@ void EthernetMenu::drawIcon(float scale) {
     int y2 = cy + h / 2;
 
     // Thickness, Width & Height
-    int t = 3 * scale;
-    if (t < 2) t = 2;
+    int t = 2 * scale;
+    if (t < 1) t = 1;
 
-    int nw = 20 * scale;
+    int nw = 14 * scale;
     if (nw % 2 != 0) nw++;
-    int nh = 12 * scale;
+    int nh = 8 * scale;
 
 
     // Borders
@@ -98,11 +98,11 @@ void EthernetMenu::drawIcon(float scale) {
     tft.fillRect(cx - nw / 2, y2 - nh - t, nw, t, bruceConfig.priColor);
 
     // 8 Pins
-    int pinW = 2 * scale;
+    int pinW = 1 * scale;
     if (pinW < 1) pinW = 1;
     int pinH = (h / 2) - t;
 
-    int step = (28 * scale) / 7;
+    int step = (20 * scale) / 7;
     if (step < 2) step = 2;
     int totalSpread = step * 7;
     int firstPinX = cx - (totalSpread / 2);

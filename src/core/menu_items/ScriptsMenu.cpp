@@ -25,8 +25,8 @@ void ScriptsMenu::optionsMenu() {
 void ScriptsMenu::drawIcon(float scale) {
     clearIconArea();
 
-    int iconW = scale * 15;
-    int iconH = scale * 24;
+    int iconW = scale * 20;
+    int iconH = scale * 26;
 
     if (iconW % 2 != 0) iconW++;
     if (iconH % 2 != 0) iconH++;

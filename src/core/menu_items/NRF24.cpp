@@ -77,8 +77,8 @@ void NRF24Menu::configMenu() {
 
 void NRF24Menu::drawIcon(float scale) {
     clearIconArea();
-    int iconW = scale * 25;
-    int iconH = scale * 14;
+    int iconW = scale * 32;
+    int iconH = scale * 25;
 
     if (iconW % 2 != 0) iconW++;
     if (iconH % 2 != 0) iconH++;
