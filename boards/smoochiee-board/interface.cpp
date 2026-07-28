@@ -52,65 +52,63 @@ void _setBrightness(uint8_t brightval) {
 ** Function: InputHandler
 ** Handles the variables PrevPress, NextPress, SelPress, AnyKeyPress and EscPress
 **********************************************************************/
-void InputHandler(void) {
-    static unsigned long tm = 0;
-    static unsigned long upTime = 0;
-    static unsigned long dwTime = 0;
+void InputHandler() {
+        static bool upLast = false, dwLast = false;
+            static bool upLong = false, dwLong = false;
+                static uint32_t upTime = 0, dwTime = 0;
+                    static uint32_t lastUpEvent = 0, lastDwEvent = 0;
 
-        if (millis() - tm < 40) return;
+                        bool up = (digitalRead(UP_BTN) == BTN_ACT);
+                            bool dw = (digitalRead(DW_BTN) == BTN_ACT);
 
-        bool up = (digitalRead(UP_BTN) == BTN_ACT);
-        bool dw = (digitalRead(DW_BTN) == BTN_ACT);
+                                if (up || dw) {
+                                        if (!wakeUpScreen())
+                                                    AnyKeyPress = true;
+                                                            else
+                                                                        return;
+                                                                            }
 
-    if (up || dw) {
-        tm = millis();
+                                                                                // ===== UP =====
+                                                                                    if (up != upLast && millis() - lastUpEvent > 40) {
+                                                                                            lastUpEvent = millis();
+                                                                                                    upLast = up;
 
-        if (!wakeUpScreen())
-        AnyKeyPress = true;
-    else
-    return;
+                                                                                                            if (up) {
+                                                                                                                        upTime = millis();
+                                                                                                                                    upLong = false;
+                                                                                                                                            } else {
+                                                                                                                                                        if (!upLong) {
+                                                                                                                                                                        UpPress = true;
+                                                                                                                                                                                    }
+                                                                                                                                                                                            }
+                                                                                                                                                                                                }
+
+                                                                                                                                                                                                    if (up && !upLong && millis() - upTime >= 250) {
+                                                                                                                                                                                                            EscPress = true;
+                                                                                                                                                                                                                    upLong = true;
+                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                            // ===== DOWN =====
+                                                                                                                                                                                                                                if (dw != dwLast && millis() - lastDwEvent > 40) {
+                                                                                                                                                                                                                                        lastDwEvent = millis();
+                                                                                                                                                                                                                                                dwLast = dw;
+
+                                                                                                                                                                                                                                                        if (dw) {
+                                                                                                                                                                                                                                                                    dwTime = millis();
+                                                                                                                                                                                                                                                                                dwLong = false;
+                                                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                                                                    if (!dwLong) {
+                                                                                                                                                                                                                                                                                                                    DownPress = true;
+                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                                                                                                if (dw && !dwLong && millis() - dwTime >= 250) {
+                                                                                                                                                                                                                                                                                                                                                        SelPress = true;
+                                                                                                                                                                                                                                                                                                                                                                dwLong = true;
+                                                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                                                    }
 }
-
-// ======= NÚT UP =======
-static bool upHandled = false;
-
-if (up) {
-    if (upTime == 0) upTime = millis();
-
-        if (!upHandled && millis() - upTime >= 250) {
-                EscPress = true;
-                        upHandled = true;
-                            }
-                            } else {
-                                if (upTime != 0 && !upHandled) {
-                                        PrevPress = true;
-                                                UpPress = true;
-                                                        PrevPagePress = true;
-                                                            }
-                                                                upTime = 0;
-                                                                    upHandled = false;
-                                                                    }
-
-// ======= NÚT DOWN =======
-static bool dwHandled = false;
-
-if (dw) {
-    if (dwTime == 0) dwTime = millis();
-
-        if (!dwHandled && millis() - dwTime >= 250) {
-                SelPress = true;
-                        dwHandled = true;
-                            }
-                            } else {
-                                if (dwTime != 0 && !dwHandled) {
-                                        NextPress = true;
-                                                DownPress = true;
-                                                        NextPagePress = true;
-                                                            }
-                                                                dwTime = 0;
-                                                                    dwHandled = false;
-                                                                    }
- }
 
 /*********************************************************************
 ** Function: powerOff
@@ -125,42 +123,7 @@ void powerOff() {
 ** Function: checkReboot
 ** location: mykeyboard.cpp
 ** Btn logic to turn off the device (name is odd btw)
-**********************************************************************/
-/**
-void checkReboot() {
-    int countDown = 0;
-   if (digitalRead(L_BTN) == BTN_ACT && digitalRead(R_BTN) == BTN_ACT) {
-        uint32_t time_count = millis();
-       while (digitalRead(L_BTN) == BTN_ACT && digitalRead(R_BTN) == BTN_ACT) {
-            // Display poweroff bar only if holding button
-            if (millis() - time_count > 500) {
-                if (countDown == 0) {
-                    int textWidth = tft.textWidth("PWR OFF IN 3/3", 1);
-                    tft.fillRect(tftWidth / 2 - textWidth / 2, 7, textWidth, 18, bruceConfig.bgColor);
-                }
-                tft.setTextSize(1);
-                tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
-                countDown = (millis() - time_count) / 1000 + 1;
-                if (countDown < 4)
-                    tft.drawCentreString("PWR OFF IN " + String(countDown) + "/3", tftWidth / 2, 12, 1);
-                else {
-                    tft.fillScreen(bruceConfig.bgColor);
-                    while (digitalRead(L_BTN) == BTN_ACT || digitalRead(R_BTN) == BTN_ACT);
-                    delay(200);
-                    powerOff();
-                }
-                delay(10);
-            }
-       }
-
-        // Clear text after releasing the button
-        delay(30);
-        if (millis() - time_count > 500) {
-            tft.fillRect(60, 12, tftWidth - 60, tft.fontHeight(1), bruceConfig.bgColor);
-            drawStatusBar();
-        }
-    }
-}*/
+*******************************************************************/
 
 void checkReboot() {
         return;

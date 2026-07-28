@@ -25,7 +25,7 @@ static const uint8_t SCK = 18;
 #define USB_as_HID 1
 
 #define BTN_ALIAS "\"OK\""
-#define HAS_2_BUTTONS
+#define HAS_3_BUTTONS
 #define UP_BTN 41
 #define DW_BTN 0
 #define BTN_ACT LOW
