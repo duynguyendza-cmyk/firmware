@@ -1044,10 +1044,11 @@ Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
         if (start < 0) start = 0;
     }
     int nchars = (tftWidth - 40) / (6 * tft.getTextSize());
-    String txt = ">";
+
     while (i < arraySize) {
+        String txt = ">";
         if (i >= start) {
-          tft.setCursor(8, 10 + ((i - start) * 10));
+            tft.setCursor(8, 10 + ((i - start) * 10));
             int lineY = 10 + ((i - start) * 10);
             tft.setCursor(8, lineY);
             if (fileList[i].folder == true)
@@ -1069,9 +1070,10 @@ Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
         }
             txt += fileList[i].filename + "                 ";
             tft.println(txt.substring(0, nchars));
-            if (index == i) displayScrollingText(fileList[i].filename, coord, false);
+           // if (index == i) displayScrollingText(fileList[i].filename, coord, false);
             i++;
     }
+
     return coord;
 }
 
