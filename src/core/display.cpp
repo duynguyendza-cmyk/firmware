@@ -1070,6 +1070,7 @@ Opt_Coord listFiles(int index, std::vector<FileList> fileList) {
             txt += fileList[i].filename + "                 ";
             tft.println(txt.substring(0, nchars));
             if (index == i) displayScrollingText(fileList[i].filename, coord, false);
+            i++;
     }
     return coord;
 }
