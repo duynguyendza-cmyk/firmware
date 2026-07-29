@@ -1600,7 +1600,7 @@ bleSpamConfigScreen(const BleSpamSelection &selection, BleSpamConfig &config, bo
             tft.setTextColor(TFT_DARKGREY, bruceConfig.bgColor);
             int footerY = tftHeight - FP * LH - 12;
             tft.fillRect(8, footerY, tftWidth - 16, FP * LH + 4, bruceConfig.bgColor);
-            tft.drawCentreString("Click=Select  ESC=Back", tftWidth / 2, footerY + 2, 1);
+          //  tft.drawCentreString("Click=Select  ESC=Back", tftWidth / 2, footerY + 2, 1);
 
             redrawRows = false;
         }
@@ -1705,7 +1705,7 @@ static void bleSpamRenderRunningScreen(
         tft.setTextColor(TFT_DARKGREY, bruceConfig.bgColor);
         int footerY = tftHeight - FP * LH - 12;
         tft.fillRect(8, footerY, tftWidth - 16, FP * LH + 4, bruceConfig.bgColor);
-        tft.drawCentreString("Click=Edit  ESC=Stop", tftWidth / 2, footerY + 2, 1);
+       // tft.drawCentreString("Click=Edit  ESC=Stop", tftWidth / 2, footerY + 2, 1);
     }
 
     if (blinkDirty) {
@@ -1761,7 +1761,7 @@ static bool bleSpamStoppedPrompt(const BleSpamSelection &selection, uint32_t sen
                 tft.setTextColor(TFT_DARKGREY, bruceConfig.bgColor);
                 int footerY = tftHeight - FP * LH - 12;
                 tft.fillRect(8, footerY, tftWidth - 16, FP * LH + 4, bruceConfig.bgColor);
-                tft.drawCentreString("Click=Select  ESC=Back", tftWidth / 2, footerY + 2, 1);
+               // tft.drawCentreString("Click=Select  ESC=Back", tftWidth / 2, footerY + 2, 1);
                 layoutDrawn = true;
             }
 
@@ -2042,7 +2042,7 @@ static void bleSpamMenuUi() {
             bleSpamGetAttackOptionCount(),
             0,
             [](int idx) { return bleSpamGetAttackLabel(idx); },
-            "Click=Select  ESC=Back"
+            "^^"
         );
 
         if (attackIndex < 0) return;
@@ -2071,7 +2071,7 @@ static void bleSpamMenuUi() {
                 deviceCount,
                 0,
                 [&](int idx) { return bleSpamGetDeviceName(selection.attack_type, idx); },
-                "Click=Select  ESC=Back"
+                "^^"
             );
 
             if (deviceIndex < 0) break;
