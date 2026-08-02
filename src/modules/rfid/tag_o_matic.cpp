@@ -193,7 +193,7 @@ void TagOMatic::set_state(RFID_State state) {
 }
 
 void TagOMatic::display_banner() {
-    drawMainBorderWithTitle("TAG-O-MATIC");
+    drawMainBorderWithTitle("");
 
     switch (current_state) {
         case READ_MODE: printSubtitle("READ MODE"); break;
@@ -209,13 +209,13 @@ void TagOMatic::display_banner() {
         case EMULATE_NDEF_MODE: printSubtitle("EMULATE NDEF MODE"); break;
         case SAVE_MODE: printSubtitle("SAVE MODE"); break;
     }
-
+/**
     tft.setTextSize(FP);
     padprintln("");
     tft.setTextColor(getColorVariation(bruceConfig.priColor), bruceConfig.bgColor);
-    padprintln("Press [OK] to change mode.");
+
     tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
-    padprintln("");
+    padprintln("");*/
 }
 
 void TagOMatic::dump_card_details() {

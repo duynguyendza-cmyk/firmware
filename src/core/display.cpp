@@ -964,7 +964,7 @@ void printSubtitle(const String &subtitle, bool withLine) {
     tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
     tft.setTextSize(FP);
 
-    tft.setCursor(cursorX, BORDER_PAD_Y + FM * LH);
+    tft.setCursor(cursorX, 3);
     tft.println(subtitle);
 
     if (withLine) {

@@ -10,22 +10,31 @@
 #include "modules/rfid/srix_tool.h" //added for srix Tool
 #include "modules/rfid/tag_o_matic.h"
 
+#ifndef PN532_POWER_PIN
+#define PN532_POWER_PIN 38
+#endif
+
 #ifndef LITE_VERSION
 #include "modules/rfid/emv_reader.hpp"
 #endif
 void RFIDMenu::optionsMenu() {
-    options = {
+
+pinMode(PN532_POWER_PIN, OUTPUT);
+digitalWrite(PN532_POWER_PIN, HIGH);
+delay(50);
+
+options = {
 #if !defined(REMOVE_RFID_HW_INTERFACE)  // Remove Hardware interface menu due to lack of external GPIO
-        {"Read tag",    [=]() { TagOMatic(); }                     },
+    {"Read tag",    [=]() { TagOMatic(); }                     },
 #ifndef LITE_VERSION
-        {"Read EMV",    [=]() { EMVReader(); }                     },
-        {"Read 125kHz", [=]() { RFID125(); }                       },
+    {"Read EMV",    [=]() { EMVReader(); }                     },
+    {"Read 125kHz", [=]() { RFID125(); }                       },
 #endif
-        {"Scan tags",   [=]() { TagOMatic(TagOMatic::SCAN_MODE); } },
-        {"Load file",   [=]() { TagOMatic(TagOMatic::LOAD_MODE); } },
-        {"Erase data",  [=]() { TagOMatic(TagOMatic::ERASE_MODE); }},
+    {"Scan tags",   [=]() { TagOMatic(TagOMatic::SCAN_MODE); } },
+    {"Load file",   [=]() { TagOMatic(TagOMatic::LOAD_MODE); } },
+    {"Erase data",  [=]() { TagOMatic(TagOMatic::ERASE_MODE); }},
 #endif
-    };
+};
 
 #if !defined(REMOVE_RFID_HW_INTERFACE)
     // Emulate NDEF (arm the radio directly with a built NDEF message) only
@@ -66,13 +75,7 @@ void RFIDMenu::optionsMenu() {
     vTaskDelay(pdMS_TO_TICKS(200));
 
     String txt = "RFID";
-    if (bruceConfigPins.rfidModule == M5_RFID2_MODULE) txt += " (RFID2)";
-#ifdef M5STICK
-    else if (bruceConfigPins.rfidModule == PN532_I2C_MODULE) txt += " (PN532-G33)";
-    else if (bruceConfigPins.rfidModule == PN532_I2C_SPI_MODULE) txt += " (PN532-G36)";
-#else
-    else if (bruceConfigPins.rfidModule == PN532_I2C_MODULE) txt += " (PN532-I2C)";
-#endif
+    if (bruceConfigPins.rfidModule == PN532_I2C_MODULE) txt += " (PN532-I2C)";
     else if (bruceConfigPins.rfidModule == PN532_SPI_MODULE) txt += " (PN532-SPI)";
     else if (bruceConfigPins.rfidModule == RC522_SPI_MODULE) txt += " (RC522-SPI)";
 #if !defined(LITE_VERSION)
@@ -80,6 +83,7 @@ void RFIDMenu::optionsMenu() {
     else if (bruceConfigPins.rfidModule == ST25R3916_I2C_MODULE) txt += " (ST25R-I2C)";
 #endif
     loopOptions(options, MENU_TYPE_SUBMENU, txt.c_str());
+    digitalWrite(PN532_POWER_PIN, LOW);
 }
 
 void RFIDMenu::configMenu() {

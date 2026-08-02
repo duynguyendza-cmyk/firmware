@@ -731,21 +731,9 @@ void setRFFreqMenu() {
 **********************************************************************/
 void setRFIDModuleMenu() {
     options = {
-        {"M5 RFID2",
-         [=]() { bruceConfigPins.setRfidModule(M5_RFID2_MODULE); },
-         bruceConfigPins.rfidModule == M5_RFID2_MODULE     },
-#ifdef M5STICK
-        {"PN532 I2C G33",
-         [=]() { bruceConfigPins.setRfidModule(PN532_I2C_MODULE); },
-         bruceConfigPins.rfidModule == PN532_I2C_MODULE    },
-        {"PN532 I2C G36",
-         [=]() { bruceConfigPins.setRfidModule(PN532_I2C_SPI_MODULE); },
-         bruceConfigPins.rfidModule == PN532_I2C_SPI_MODULE},
-#else
         {"PN532 on I2C",
          [=]() { bruceConfigPins.setRfidModule(PN532_I2C_MODULE); },
          bruceConfigPins.rfidModule == PN532_I2C_MODULE},
-#endif
         {"PN532 on SPI",
          [=]() { bruceConfigPins.setRfidModule(PN532_SPI_MODULE); },
          bruceConfigPins.rfidModule == PN532_SPI_MODULE    },

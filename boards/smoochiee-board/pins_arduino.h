@@ -7,8 +7,8 @@
 static const uint8_t TX = 1;
 static const uint8_t RX = 2;
 
-static const uint8_t SDA = 47;
-static const uint8_t SCL = 48;
+static const uint8_t SDA = 48;
+static const uint8_t SCL = 47;
 
 // Modified elsewhere
 static const uint8_t SS = 3;
@@ -87,10 +87,10 @@ static const uint8_t SCK = 18;
 #define SDCARD_MISO 8
 #define SDCARD_MOSI 17
 
-#define GROVE_SDA 47
-#define GROVE_SCL 48
-#define SYS_I2C_SDA 47
-#define SYS_I2C_SCL 48
+#define GROVE_SDA 48
+#define GROVE_SCL 47
+#define SYS_I2C_SDA 48
+#define SYS_I2C_SCL 47
 
 #define SPI_SCK_PIN 13
 #define SPI_MOSI_PIN 12
