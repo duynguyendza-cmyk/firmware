@@ -279,8 +279,8 @@ void drawWebUiScreen(bool mode_ap) {
     if (!mode_ap) txt = WiFi.localIP().toString();
     else txt = WiFi.softAPIP().toString();
 
-    int padX = 14;
-    int currentY = 55;
+    int padX = 2;
+    int currentY = 18;
 
     tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
     tft.setTextSize(FP);
@@ -288,27 +288,23 @@ void drawWebUiScreen(bool mode_ap) {
     if (mode_ap) {
         tft.setCursor(padX, currentY);
         tft.print("Net: BruceNet/brucenet");
-        currentY += LH * FP + 6;
+        currentY += LH * FP + 2;
     }
 
     tft.setCursor(padX, currentY);
     if (mdnsRunning) tft.print("Url: http://bruce.local");
-    currentY += LH * FP + 6;
+    currentY += LH * FP + 2;
 
     tft.setCursor(padX, currentY);
     tft.print("IP:  " + txt);
-    currentY += LH * FP + 6;
+    currentY += LH * FP + 2;
 
     tft.setCursor(padX, currentY);
     tft.print("Usr: " + String(bruceConfig.webUI.user));
-    currentY += LH * FP + 6;
+    currentY += LH * FP + 2;
 
     tft.setCursor(padX, currentY);
     tft.print("Pwd: " + String(bruceConfig.webUI.pwd));
-
-    tft.setTextColor(TFT_RED, bruceConfig.bgColor);
-    tft.setTextSize(FP);
-    tft.drawCentreString("press Esc to stop", tftWidth / 2, tftHeight - 2 * LH * FP - 5, 1);
 
 #if defined(HAS_TOUCH)
     TouchFooter();
