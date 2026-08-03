@@ -20,6 +20,12 @@
 
 #define NDEF_DATA_SIZE 100
 #define SCAN_DUMP_SIZE 5
+static std::vector<String> dumpLines;
+static int dumpScroll = 0;
+
+#define LINE_HEIGHT 11
+#define FIRST_LINE_Y 18
+#define MAX_VISIBLE_LINES
 
 TagOMatic::TagOMatic() {
     _initial_state = READ_MODE;
@@ -217,7 +223,7 @@ void TagOMatic::display_banner() {
     tft.setTextColor(bruceConfig.priColor, bruceConfig.bgColor);
     padprintln("");*/
 }
-
+/**
 void TagOMatic::dump_card_details() {
     padprintln("Device type: " + _rfid->printableUID.picc_type);
     if (_rfid->printableUID.picc_type != "FeliCa") {
@@ -234,7 +240,68 @@ void TagOMatic::dump_card_details() {
     }
     if (_rfid->pageReadStatus != RFIDInterface::SUCCESS)
         padprintln("[!] " + _rfid->statusMessage(_rfid->pageReadStatus));
+}*/
+
+void TagOMatic::dump_card_details() {
+        dumpLines.clear();
+dumpLines.push_back("Type : " + _rfid->printableUID.picc_type);
+if (_rfid->printableUID.picc_type != "FeliCa") {
+dumpLines.push_back("UID  : " + _rfid->printableUID.uid);
+dumpLines.push_back("ATQA : " + _rfid->printableUID.atqa);
+dumpLines.push_back("SAK  : " + _rfid->printableUID.sak);
+if (_rfid->dataPages > 0)
+dumpLines.push_back(
+        "Pages: " +
+        String(_rfid->dataPages) +
+        "/" +
+        String(_rfid->totalPages));
+} else {
+dumpLines.push_back("IDm : " + _rfid->printableUID.uid);
+dumpLines.push_back("PMm : " + _rfid->printableUID.sak);
+dumpLines.push_back("Sys : " + _rfid->printableUID.atqa);
+    }
+
+if (_rfid->pageReadStatus != RFIDInterface::SUCCESS)
+dumpLines.push_back(
+    "[!] " +
+    _rfid->statusMessage(_rfid->pageReadStatus));
+if (_rfid->strAllPages.length()) {
+dumpLines.push_back("----------------");
+int start = 0;
+while (start < _rfid->strAllPages.length()) {
+int end = _rfid->strAllPages.indexOf('\n', start);
+if (end < 0)
+end = _rfid->strAllPages.length();
+dumpLines.push_back(
+_rfid->strAllPages.substring(start, end));
+start = end + 1;
+        }
+         }
+while (true) {
+tft.fillRect(0, FIRST_LINE_Y, tftWidth, tftHeight - FIRST_LINE_Y, bruceConfig.bgColor);
+int y = FIRST_LINE_Y;
+for (int i = 0;
+i < MAX_VISIBLE_LINES && (i + dumpScroll) < dumpLines.size();
+i++) {
+tft.setCursor(2, y);
+tft.print(dumpLines[i + dumpScroll]);
+y += LINE_HEIGHT;
 }
+if (check(NextPress)) {
+if (dumpScroll < dumpLines.size() - MAX_VISIBLE_LINES)
+    dumpScroll++;
+    }
+if (check(PrevPress)) {
+if (dumpScroll > 0)
+dumpScroll--;
+            }
+if (check(EscPress) || check(SelPress))
+break;
+delay(20);
+    }
+dumpScroll = 0;
+}
+
 
 void TagOMatic::dump_check_details() {
     padprintln("Source UID: " + _sourceUID);
@@ -289,6 +356,7 @@ void TagOMatic::read_card() {
     // Serial.println(_rfid->statusMessage(_rfid->pageReadStatus));
 
     display_banner();
+    dumpScroll = 0;
     dump_card_details();
 
     _read_uid = true;
