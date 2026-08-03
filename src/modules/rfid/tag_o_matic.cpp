@@ -25,7 +25,7 @@ static int dumpScroll = 0;
 
 #define LINE_HEIGHT 11
 #define FIRST_LINE_Y 18
-#define MAX_VISIBLE_LINES
+#define MAX_VISIBLE_LINES ((tftHeight - FIRST_LINE_Y) / LINE_HEIGHT)
 
 TagOMatic::TagOMatic() {
     _initial_state = READ_MODE;
@@ -280,17 +280,14 @@ start = end + 1;
 while (true) {
 tft.fillRect(0, FIRST_LINE_Y, tftWidth, tftHeight - FIRST_LINE_Y, bruceConfig.bgColor);
 int y = FIRST_LINE_Y;
-for (int i = 0;
-i < MAX_VISIBLE_LINES && (i + dumpScroll) < dumpLines.size();
-i++) {
-tft.setCursor(2, y);
-tft.print(dumpLines[i + dumpScroll]);
-y += LINE_HEIGHT;
+for (int i = 0; i < MAX_VISIBLE_LINES && (i + dumpScroll) < (int)dumpLines.size(); i++) {
+    tft.setCursor(2, y);
+    tft.print(dumpLines[i + dumpScroll]);
+    y += LINE_HEIGHT;
 }
 if (check(NextPress)) {
-if (dumpScroll < dumpLines.size() - MAX_VISIBLE_LINES)
-    dumpScroll++;
-    }
+    if (dumpScroll < max(0, (int)dumpLines.size() - MAX_VISIBLE_LINES)) dumpScroll++;
+}
 if (check(PrevPress)) {
 if (dumpScroll > 0)
 dumpScroll--;
