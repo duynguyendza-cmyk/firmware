@@ -265,18 +265,66 @@ if (_rfid->pageReadStatus != RFIDInterface::SUCCESS)
 dumpLines.push_back(
     "[!] " +
     _rfid->statusMessage(_rfid->pageReadStatus));
+
 if (_rfid->strAllPages.length()) {
-dumpLines.push_back("----------------");
-int start = 0;
-while (start < _rfid->strAllPages.length()) {
-int end = _rfid->strAllPages.indexOf('\n', start);
-if (end < 0)
-end = _rfid->strAllPages.length();
-dumpLines.push_back(
-_rfid->strAllPages.substring(start, end));
-start = end + 1;
-        }
-         }
+
+        dumpLines.push_back("----------------");
+            dumpLines.push_back("Text:");
+
+                String text = "";
+
+                    int start = 0;
+
+                        while (start < _rfid->strAllPages.length()) {
+
+                                int end = _rfid->strAllPages.indexOf('\n', start);
+
+                                        if (end < 0)
+                                                    end = _rfid->strAllPages.length();
+
+                                                            String line = _rfid->strAllPages.substring(start, end);
+
+                                                                    int pos = line.indexOf(':');
+
+                                                                            if (pos > 0) {
+
+                                                                                        String data = line.substring(pos + 1);
+                                                                                                    data.trim();
+
+                                                                                                                while (data.length()) {
+
+                                                                                                                                int sp = data.indexOf(' ');
+                                                                                                                                                String hex;
+
+                                                                                                                                                                if (sp < 0) {
+                                                                                                                                                                                    hex = data;
+                                                                                                                                                                                                        data = "";
+                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                            hex = data.substring(0, sp);
+                                                                                                                                                                                                                                                                data = data.substring(sp + 1);
+                                                                                                                                                                                                                                                                                    data.trim();
+                                                                                                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                                                                                                                    int value = strtol(hex.c_str(), NULL, 16);
+
+                                                                                                                                                                                                                                                                                                                                    if (value == 0xFE)
+                                                                                                                                                                                                                                                                                                                                                        break;
+
+                                                                                                                                                                                                                                                                                                                                                                        if (value >= 32 && value <= 126)
+                                                                                                                                                                                                                                                                                                                                                                                            text += (char)value;
+                                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                        start = end + 1;
+                                                                                                                                                                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                if (text.length())
+                                                                                                                                                                                                                                                                                                                                                                                                                                        dumpLines.push_back(text);
+                                                                                                                                                                                                                                                                                                                                                                                                                                            else
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    dumpLines.push_back("(No ASCII text)");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    }
+
+
 bool redraw = true;
 
 while (true) {
@@ -413,7 +461,6 @@ void TagOMatic::check_card() {
     dump_check_details();
 
     _lastReadTime = millis();
-    delayWithReturn(500);
 }
 
 void TagOMatic::clone_card() {
