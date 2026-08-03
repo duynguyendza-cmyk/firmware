@@ -12,10 +12,6 @@
 #include "RFIDInterface.h"
 #include <set>
 
-#include <vector>
-
-std::vector<String> dumpLines;
-int dumpScroll = 0;
 
 class TagOMatic {
 public:
