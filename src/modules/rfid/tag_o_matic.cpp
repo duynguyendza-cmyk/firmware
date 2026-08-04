@@ -268,65 +268,48 @@ dumpLines.push_back(
 
 
 if (_rfid->ndefType.length()) {
-
-        dumpLines.push_back("----------------");
-            dumpLines.push_back("NDEF:");
-
-                dumpLines.push_back("Type : " + _rfid->ndefType);
-
-                    if (_rfid->ndefText.length())
-                            dumpLines.push_back(_rfid->ndefText);
-                            }
+dumpLines.push_back("----------------");
+dumpLines.push_back("NDEF:");
+dumpLines.push_back("Type : " + _rfid->ndefType);
+if (_rfid->ndefText.length())
+dumpLines.push_back(_rfid->ndefText);
+}
 
 
 
 bool redraw = true;
 
 while (true) {
+if (redraw) {
+redraw = false;
+tft.fillRect(0, FIRST_LINE_Y, tftWidth, tftHeight - FIRST_LINE_Y, bruceConfig.bgColor);
+int y = FIRST_LINE_Y;
+for (int i = 0;
+i < MAX_VISIBLE_LINES &&
+(i + dumpScroll) < (int)dumpLines.size();
+i++) {
+tft.setCursor(2, y);
+tft.print(dumpLines[i + dumpScroll]);
+y += LINE_HEIGHT;
+    }
+}
+if (check(NextPress)) {
+if (dumpScroll < max(0, (int)dumpLines.size() - MAX_VISIBLE_LINES)) {
+    dumpScroll++;
+    redraw = true;
+        }
+    }
+if (check(PrevPress)) {
+if (dumpScroll > 0) {
+    dumpScroll--;
+    redraw = true;
+            }
+        }
+if (check(EscPress) || check(SelPress))
+    break;
 
-    if (redraw) {
-            redraw = false;
-
-                    tft.fillRect(
-                                0,
-                                            FIRST_LINE_Y,
-                                                        tftWidth,
-                                                                    tftHeight - FIRST_LINE_Y,
-                                                                                bruceConfig.bgColor);
-
-                                                                                        int y = FIRST_LINE_Y;
-
-                                                                                                for (int i = 0;
-                                                                                                             i < MAX_VISIBLE_LINES &&
-                                                                                                                          (i + dumpScroll) < (int)dumpLines.size();
-                                                                                                                                       i++) {
-
-                                                                                                                                                   tft.setCursor(2, y);
-                                                                                                                                                               tft.print(dumpLines[i + dumpScroll]);
-
-                                                                                                                                                                           y += LINE_HEIGHT;
-                                                                                                                                                                                   }
-                                                                                                                                                                                       }
-
-                                                                                                                                                                                           if (check(NextPress)) {
-                                                                                                                                                                                                   if (dumpScroll < max(0, (int)dumpLines.size() - MAX_VISIBLE_LINES)) {
-                                                                                                                                                                                                               dumpScroll++;
-                                                                                                                                                                                                                           redraw = true;
-                                                                                                                                                                                                                                   }
-                                                                                                                                                                                                                                       }
-
-                                                                                                                                                                                                                                           if (check(PrevPress)) {
-                                                                                                                                                                                                                                                   if (dumpScroll > 0) {
-                                                                                                                                                                                                                                                               dumpScroll--;
-                                                                                                                                                                                                                                                                           redraw = true;
-                                                                                                                                                                                                                                                                                   }
-                                                                                                                                                                                                                                                                                       }
-
-                                                                                                                                                                                                                                                                                           if (check(EscPress) || check(SelPress))
-                                                                                                                                                                                                                                                                                                   break;
-
-                                                                                                                                                                                                                                                                                                       delay(20);
-                                                                                                                                                                                                                                                                                                       }
+delay(20);
+}
 dumpScroll = 0;
 }
 

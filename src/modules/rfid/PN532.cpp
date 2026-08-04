@@ -321,68 +321,50 @@ struct NdefInfo {
 
 NdefInfo decodeNdef(const std::vector<uint8_t> &ndef)
 {
-    NdefInfo info;
-
-        if (ndef.size() < 5)
-                return info;
-
-                    uint8_t header = ndef[0];
-                        uint8_t typeLen = ndef[1];
-                            uint8_t payloadLen = ndef[2];
-
-                                if (ndef.size() < 3 + typeLen + payloadLen)
-                                        return info;
-
-                                            uint8_t type = ndef[3];
-
-                                                switch(type)
-                                                    {
-                                                            case 'T':
-                                                                    {
-                                                                                info.type = "Text";
-
-                                                                                            uint8_t status = ndef[4];
-                                                                                                        uint8_t langLen = status & 0x3F;
-
-                                                                                                                    for(size_t i = 5 + langLen; i < ndef.size(); i++)
-                                                                                                                                    info.content += (char)ndef[i];
-
-                                                                                                                                                break;
-                                                                                                                                                        }
-
-                                                                                                                                                                case 'U':
-                                                                                                                                                                        {
-                                                                                                                                                                                    info.type = "URL";
-
-                                                                                                                                                                                                static const char *prefix[] =
-                                                                                                                                                                                                            {
-                                                                                                                                                                                                                            "",
-                                                                                                                                                                                                                                            "http://www.",
-                                                                                                                                                                                                                                                            "https://www.",
-                                                                                                                                                                                                                                                                            "http://",
-                                                                                                                                                                                                                                                                                            "https://"
-                                                                                                                                                                                                                                                                                                        };
-
-                                                                                                                                                                                                                                                                                                                    uint8_t p = ndef[4];
-
-                                                                                                                                                                                                                                                                                                                                if(p < 5)
-                                                                                                                                                                                                                                                                                                                                                info.content = prefix[p];
-
-                                                                                                                                                                                                                                                                                                                                                            for(size_t i = 5; i < ndef.size(); i++)
-                                                                                                                                                                                                                                                                                                                                                                            info.content += (char)ndef[i];
-
-                                                                                                                                                                                                                                                                                                                                                                                        break;
-                                                                                                                                                                                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                                                                                                                                                                                        default:
-                                                                                                                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                                                                                                            info.type = "Unknown";
-                                                                                                                                                                                                                                                                                                                                                                                                                                        info.content = "";
-                                                                                                                                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        return info;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+NdefInfo info;
+if (ndef.size() < 5)
+return info;
+uint8_t header = ndef[0];
+uint8_t typeLen = ndef[1];
+uint8_t payloadLen = ndef[2];
+if (ndef.size() < 3 + typeLen + payloadLen)
+    return info;
+uint8_t type = ndef[3];
+switch(type)
+{case 'T':
+{info.type = "Text";
+uint8_t status = ndef[4];
+uint8_t langLen = status & 0x3F;
+for(size_t i = 5 + langLen; i < ndef.size(); i++)
+info.content += (char)ndef[i];
+break;
+    }
+    case 'U':
+    {
+info.type = "URL";
+static const char *prefix[] =
+            {
+        "",
+        "http://www.",
+        "https://www.",
+        "http://",
+        "https://"
+        };
+        uint8_t p = ndef[4];
+if(p < 5)
+        info.content = prefix[p];
+for(size_t i = 5; i < ndef.size(); i++)
+info.content += (char)ndef[i];
+break;
+    }
+default:
+    {
+        info.type = "Unknown";
+        info.content = "";
+    }
+    }
+return info;
+}
 } // namespace
 
 PN532::PN532(CONNECTION_TYPE connection_type) {
