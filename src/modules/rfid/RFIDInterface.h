@@ -74,6 +74,8 @@ public:
     NdefMessage ndefMessage;
     std::vector<uint8_t> rawNdefRecord;
     String strAllPages = "";
+    String ndefType = "";
+    String ndefText = "";
     // Optional forced emulation mode set by the CLI (e.g. "t4t", "felica").
     // Empty = auto-detect from the loaded tag. Honored by drivers that support it.
     String emuMode = "";

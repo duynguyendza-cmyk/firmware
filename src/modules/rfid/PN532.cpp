@@ -478,27 +478,17 @@ int PN532::read(int cardBaudRate) {
     pageReadStatus = read_data_blocks();
     pageReadSuccess = pageReadStatus == SUCCESS;
 
-    std::vector<uint8_t> ndef;
+std::vector<uint8_t> ndef;
 
-    if(extractNdefMessageFromPageDump(strAllPages, ndef))
-    {
-        NdefInfo info = decodeNdef(ndef);
+ndefText = "";
+ndefType = "";
 
-            if(info.type.length())
-                {
-                        strAllPages = "";
+if (extractNdefMessageFromPageDump(strAllPages, ndef)) {
+    NdefInfo info = decodeNdef(ndef);
 
-                                strAllPages += "Type : ";
-                                        strAllPages += printableUID.picc_type;
-                                                strAllPages += "\n\n";
-
-                                                        strAllPages += info.type;
-                                                                strAllPages += ":\n";
-
-                                                                        strAllPages += info.content;
-                                                                                strAllPages += "\n";
-                                                                                    }
-                                                                                    }
+        ndefType = info.type;
+            ndefText = info.content;
+            }
     return SUCCESS;
 }
 

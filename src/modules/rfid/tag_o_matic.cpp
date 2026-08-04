@@ -266,63 +266,18 @@ dumpLines.push_back(
     "[!] " +
     _rfid->statusMessage(_rfid->pageReadStatus));
 
-if (_rfid->strAllPages.length()) {
+
+if (_rfid->ndefType.length()) {
 
         dumpLines.push_back("----------------");
-            dumpLines.push_back("Text:");
+            dumpLines.push_back("NDEF:");
 
-                String text = "";
+                dumpLines.push_back("Type : " + _rfid->ndefType);
 
-                    int start = 0;
-
-                        while (start < _rfid->strAllPages.length()) {
-
-                                int end = _rfid->strAllPages.indexOf('\n', start);
-
-                                        if (end < 0)
-                                                    end = _rfid->strAllPages.length();
-
-                                                            String line = _rfid->strAllPages.substring(start, end);
-
-                                                                    int pos = line.indexOf(':');
-
-                                                                            if (pos > 0) {
-
-                                                                                        String data = line.substring(pos + 1);
-                                                                                                    data.trim();
-
-                                                                                                                while (data.length()) {
-
-                                                                                                                                int sp = data.indexOf(' ');
-                                                                                                                                                String hex;
-
-                                                                                                                                                                if (sp < 0) {
-                                                                                                                                                                                    hex = data;
-                                                                                                                                                                                                        data = "";
-                                                                                                                                                                                                                        } else {
-                                                                                                                                                                                                                                            hex = data.substring(0, sp);
-                                                                                                                                                                                                                                                                data = data.substring(sp + 1);
-                                                                                                                                                                                                                                                                                    data.trim();
-                                                                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                                                                                    int value = strtol(hex.c_str(), NULL, 16);
-
-                                                                                                                                                                                                                                                                                                                                    if (value == 0xFE)
-                                                                                                                                                                                                                                                                                                                                                        break;
-
-                                                                                                                                                                                                                                                                                                                                                                        if (value >= 32 && value <= 126)
-                                                                                                                                                                                                                                                                                                                                                                                            text += (char)value;
-                                                                                                                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                                                                                                                                                                                                        start = end + 1;
-                                                                                                                                                                                                                                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                if (text.length())
-                                                                                                                                                                                                                                                                                                                                                                                                                                        dumpLines.push_back(text);
-                                                                                                                                                                                                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    dumpLines.push_back("(No ASCII text)");
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    }
+                    if (_rfid->ndefText.length())
+                            dumpLines.push_back(_rfid->ndefText);
+                            }
+}
 
 
 bool redraw = true;
