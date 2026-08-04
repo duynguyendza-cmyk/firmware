@@ -58,6 +58,7 @@ public:
 #endif
 
 private:
+void buildDumpLines();
     RFIDInterface *_rfid;
     RFID_State _initial_state;
     bool _read_uid = false;

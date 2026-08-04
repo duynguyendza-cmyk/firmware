@@ -242,44 +242,64 @@ void TagOMatic::dump_card_details() {
         padprintln("[!] " + _rfid->statusMessage(_rfid->pageReadStatus));
 }*/
 
-void TagOMatic::dump_card_details() {
+
+
+void TagOMatic::buildDumpLines() {
         dumpLines.clear();
-dumpLines.push_back("Type : " + _rfid->printableUID.picc_type);
-if (_rfid->printableUID.picc_type != "FeliCa") {
-dumpLines.push_back("UID  : " + _rfid->printableUID.uid);
-dumpLines.push_back("ATQA : " + _rfid->printableUID.atqa);
-dumpLines.push_back("SAK  : " + _rfid->printableUID.sak);
-if (_rfid->dataPages > 0)
-dumpLines.push_back(
-        "Pages: " +
-        String(_rfid->dataPages) +
-        "/" +
-        String(_rfid->totalPages));
-} else {
-dumpLines.push_back("IDm : " + _rfid->printableUID.uid);
-dumpLines.push_back("PMm : " + _rfid->printableUID.sak);
-dumpLines.push_back("Sys : " + _rfid->printableUID.atqa);
-    }
 
-if (_rfid->pageReadStatus != RFIDInterface::SUCCESS)
-dumpLines.push_back(
-    "[!] " +
-    _rfid->statusMessage(_rfid->pageReadStatus));
+            dumpLines.push_back("Type : " + _rfid->printableUID.picc_type);
+
+                if (_rfid->printableUID.picc_type != "FeliCa") {
+                        dumpLines.push_back("UID  : " + _rfid->printableUID.uid);
+                                dumpLines.push_back("ATQA : " + _rfid->printableUID.atqa);
+                                        dumpLines.push_back("SAK  : " + _rfid->printableUID.sak);
+
+                                                if (_rfid->dataPages > 0) {
+                                                            dumpLines.push_back(
+                                                                            "Pages: " +
+                                                                                            String(_rfid->dataPages) +
+                                                                                                            "/" +
+                                                                                                                            String(_rfid->totalPages));
+                                                                                                                                    }
+                                                                                                                                        } else {
+                                                                                                                                                dumpLines.push_back("IDm : " + _rfid->printableUID.uid);
+                                                                                                                                                        dumpLines.push_back("PMm : " + _rfid->printableUID.sak);
+                                                                                                                                                                dumpLines.push_back("Sys : " + _rfid->printableUID.atqa);
+                                                                                                                                                                    }
+
+                                                                                                                                                                        if (_rfid->pageReadStatus != RFIDInterface::SUCCESS) {
+                                                                                                                                                                                dumpLines.push_back(
+                                                                                                                                                                                            "[!] " +
+                                                                                                                                                                                                        _rfid->statusMessage(_rfid->pageReadStatus));
+                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                if (_rfid->ndefType.length()) {
+                                                                                                                                                                                                                        dumpLines.push_back("----------------");
+                                                                                                                                                                                                                                dumpLines.push_back("NDEF:");
+                                                                                                                                                                                                                                        dumpLines.push_back("Type : " + _rfid->ndefType);
+
+                                                                                                                                                                                                                                                if (_rfid->ndefText.length())
+                                                                                                                                                                                                                                                            dumpLines.push_back(_rfid->ndefText);
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                }
 
 
-if (_rfid->ndefType.length()) {
-dumpLines.push_back("----------------");
-dumpLines.push_back("NDEF:");
-dumpLines.push_back("Type : " + _rfid->ndefType);
-if (_rfid->ndefText.length())
-dumpLines.push_back(_rfid->ndefText);
-}
 
 
+
+
+void TagOMatic::dump_card_details() {
+buildDumpLines();
 
 bool redraw = true;
 
 while (true) {
+    if (_rfid->read() == RFIDInterface::SUCCESS) {
+            dumpScroll = 0;
+                buildDumpLines();
+                    redraw = true;
+                    }
+    
 if (redraw) {
 redraw = false;
 tft.fillRect(0, FIRST_LINE_Y, tftWidth, tftHeight - FIRST_LINE_Y, bruceConfig.bgColor);
@@ -308,7 +328,7 @@ if (dumpScroll > 0) {
 if (check(EscPress) || check(SelPress))
     break;
 
-delay(20);
+vTaskDelay(pdMS_TO_TICKS(20));
 }
 dumpScroll = 0;
 }
