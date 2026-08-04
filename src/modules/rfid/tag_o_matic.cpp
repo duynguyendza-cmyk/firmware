@@ -277,7 +277,7 @@ if (_rfid->ndefType.length()) {
                     if (_rfid->ndefText.length())
                             dumpLines.push_back(_rfid->ndefText);
                             }
-}
+
 
 
 bool redraw = true;
